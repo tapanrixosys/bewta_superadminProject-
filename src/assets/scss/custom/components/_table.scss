@@ -1,0 +1,293 @@
+//
+// _table.scss
+//
+
+.table {
+  background-color: $white;
+  th {
+    font-weight: 500;
+    background-color: $white;
+    color: #687281;
+    font-size: 15px;
+    font-family: "Lato";
+  }
+  .discount-table-head {
+    font-family: "Lato" !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #687281 !important;
+  }
+
+  thead {
+    tr {
+      border-bottom: 1px solid #e3e6f0;
+      background-color: #545454 !important;
+    }
+  }
+  tbody {
+    tr {
+      background-color: $white;
+      width: 40px;
+      .action-button-padding{
+        padding: 18px;
+      }
+      .sell-data {
+        color: #545454 !important;
+        font-family: "Roboto" !important;
+        font-weight: 500 !important;
+        font-size: 12px !important;
+      }
+      .sell-data-product {
+        color: white !important;
+        font-family: "Roboto" !important;
+        font-weight: 500 !important;
+        font-size: 12px !important;
+      }
+      .membership-data {
+        color: #545454 !important;
+        font-family: "Roboto" !important;
+        //font-weight: 500 !important;
+        font-size: 13px !important;
+        height: 50px;
+      }
+      .client-table-data {
+        font-family: "Lato" !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        color: #687281 !important;
+      }
+      .retail-stock-data {
+        color: #545454 !important;
+        font-family: "Roboto" !important;
+        font-size: 12px !important;
+      }
+    }
+  }
+  .table-light {
+    color: $light-gray-border;
+    border-color: $white;
+    background-color: $white;
+  }
+}
+
+.table-bordered {
+  th,
+  td {
+    border: $white;
+    border-right: 1px solid $white;
+    background:$white;
+  }
+  
+}
+
+.table-dark > :not(:last-child) > :last-child > * {
+  border-bottom-color: $table-dark-border-color;
+}
+
+.table-nowrap {
+  th,
+  td {
+    white-space: nowrap;
+    background-color: $white;
+  }
+  tr {
+    background-color: aliceblue;
+  }
+}
+.table-header {
+  background-color: $white;
+  margin: 0px;
+  border-bottom: 1px solid $table-border-color;
+}
+.button-container {
+  border-bottom: 1px $light-gray-border;
+  border-top: 1px $light-gray-border;
+  display: flex;
+  justify-content: center;
+  height: 10%;
+  margin-top: 4px;
+  .compose-button {
+    width: 100%;
+    background-color: $dark-purple;
+    border-color: $dark-purple;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.invoice {
+  color: $light-green;
+  font-weight: 600;
+  font-size: 15px;
+}
+.employee-title {
+  font-weight: 500;
+  font-size: 13px;
+  color: #687281;
+}
+.max-content {
+  width: max-content;
+}
+.arrow-table {
+  position: absolute;
+  top: 51%;
+  left: 115%;
+  width: 5.5px;
+  height: 5.5px;
+  background: transparent;
+  border-top: 0.3vmin solid #a4a4a4;
+  border-right: 0.3vmin solid #a4a4a4;
+  box-shadow: 0 0 0 #838eab;
+
+  &.selected {
+    border-top: 0.3vmin solid #160505 !important;
+    border-right: 0.3vmin solid #160505 !important;
+    box-shadow: 0 0 0 #160505 !important;
+  }
+
+  &.left {
+    transform: rotate(135deg);
+  }
+
+  &.right {
+    transform: rotate(-45deg);
+    margin-top: -5px;
+  }
+}
+
+.sell-table-action-btn {
+  display: flex;
+  justify-content: center;
+  border-left: 1px;
+  .edit-sell-btn {
+    background-color: $light-green;
+    color: $white !important;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid $white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .delete-sell-btn {
+    background-color: $btn-danger-color;
+    color: $white;
+    border: 1px solid $white;
+    border-radius: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .email-sell-btn {
+    background-color: $dark-purple;
+    color: $white;
+    border: 1px solid $white;
+    border-radius: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 5px;
+  }
+}
+
+.table-title {
+  position: absolute;
+  left: 0;
+}
+
+.delete-btn {
+  background-color: $btn-danger-color;
+  color: $white;
+  border: 1px solid $white;
+  border-radius: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+@media (min-width: 768px) {
+  .float-left {
+    width: auto !important;
+    display: flex;
+    padding-right: 10px;
+  }
+  .padding-top {
+    height: 50px;
+    padding-top: 6px;
+  }
+  .display-flex {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 767px) {
+  .float-left div {
+    justify-content: left;
+  }
+}
+.btn-width {
+  width: 100px;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.margin {
+  margin-right: 10px;
+}
+.jf-content {
+  justify-content: flex-end !important;
+}
+.table-header-bg {
+  background-color: #f8f8f8 !important;
+  border: 1px solid #dbdbdb;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  margin: 0px;
+}
+.custom-header-tb-ab {
+  background: #f8f8f8;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.table-header-white {
+  background-color: white !important;
+  border: 1px solid #dbdbdb;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  margin: 0px;
+}
+.table-header-without-margin {
+  background-color: $white;
+  border-bottom: 1px solid $table-border-color;
+}
+.custom-table-clients table tbody tr td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.employee-setting-sms-color {
+  color: #00b3f0;
+}
+.employee-setting-sms-color span {
+  color: #00b3f0;
+}
+
+.membershipTable {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.membership-table-radio {
+  display: flex;
+  gap: 22px;
+}
+.width-70{
+  width: 70% !important;
+}
+.membership-text{
+  color: blue !important;
+}
+.action-button-padding{
+  padding: 18px;
+}

@@ -1,0 +1,246 @@
+/*
+Template Name: Bewta - Admin & Dashboard Template
+Author: Themesbrand
+Version: 3.1.0
+Website: https://themesbrand.com/
+Contact: themesbrand@gmail.com
+File: Icons Css File
+*/
+
+// Plugins
+@import "custom/plugins/icons";
+
+.icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  -webkit-mask-position: center center !important;
+  mask-position: center center !important;
+
+  &.dashboard {
+    background: transparent url(../icons/dashboard.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.sms {
+    background: transparent url(../icons/sms.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+  &.sms-search {
+    background: transparent url(../icons/search.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.email {
+    background: transparent url(../icons/email.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.calendar {
+    background: transparent url(../icons/calendar.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.shoppingBag {
+    background: transparent url(../icons/shopping-bag.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.clients {
+    background: transparent url(../icons/clients.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.salesGraph {
+    background: transparent url(../icons/sales-graph.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.inventory {
+    background: transparent url(../icons/inventory.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.marketing {
+    background: transparent url(../icons/marketing.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.employees {
+    background: transparent url(../icons/employees.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.settings {
+    background: transparent url(../icons/settings.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.reports {
+    background: transparent url(../icons/reports-and-analysis.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.admin {
+    background: transparent url(../icons/account-admin.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.package {
+    background: transparent url(../icons/dashboard.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+
+  &.bell {
+    background: transparent url(../icons/bell.svg) no-repeat center center;
+    background-size: 18px 18px;
+  }
+
+  &.messages {
+    background: transparent url(../icons/message.svg) no-repeat center center;
+    background-size: 18px 18px;
+  }
+  &.attach-image {
+    background: transparent url(../icons/image.svg) no-repeat center center;
+    background-size: 18px 18px;
+  }
+  &.smile-emoji {
+    background: transparent url(../icons/smile.svg) no-repeat center center;
+    background-size: 18px 18px;
+  }
+  &.link {
+    background: transparent url(../icons/link-2.svg) no-repeat center center;
+    background-size: 18px 18px;
+  }
+  &.paperclip {
+    background: transparent url(../icons/paperclip.svg) no-repeat center center;
+    background-size: 24px 24px;
+  }
+  &.inbox {
+    background: transparent url(../icons/inbox.svg) no-repeat center center;
+    background-size: 12.2px 9.76px;
+  }
+  &.star {
+    background: transparent url(../icons/star.svg) no-repeat center center;
+    background-size: 12.2px 9.76px;
+  }
+  &.clock {
+    background: transparent url(../icons/clock.svg) no-repeat center center;
+    background-size: 11px 11px;
+  }
+  &.zap {
+    background: transparent url(../icons/zap.svg) no-repeat center center;
+    background-size: 12px 12px;
+  }
+  &.layout {
+    background: transparent url(../icons/layout.svg) no-repeat center center;
+    background-size: 11px 11px;
+  }
+  &.reload {
+    background: transparent url(../icons/reload.svg) no-repeat center center;
+    background-size: 17px 17px;
+  }
+  &.delete {
+    background: transparent url(../icons/trash-2.svg) no-repeat center center;
+    background-size: 15px 17px;
+  }
+  &.delete-white {
+    background: transparent url(../icons/delete-white.svg) no-repeat center center;
+    background-size: 15px 17px;
+  }
+  &.arrow-left {
+    background: transparent url(../icons/arrow-left.svg) no-repeat center center;
+    background-size: 16px 14px;
+  }
+  &.email-opened {
+    background: transparent url(../icons/opened.svg) no-repeat center center;
+    background-size: 15px 15px;
+  }
+  &.email-layout {
+    background: transparent url(../icons/layout.svg) no-repeat center center;
+    background-size: 16.78px 15px;
+  }
+  &.email-clock {
+    background: transparent url(../icons/clock.svg) no-repeat center center;
+    background-size: 15px 15px;
+  }
+  &.email-star {
+    background: transparent url(../icons/star.svg) no-repeat center center;
+    background-size: 15.77px 15px;
+  }
+  &.forward-arrow {
+    background: transparent url(../icons/forward-arrow.svg) no-repeat center center;
+    background-size: 9px 7px;
+  }
+  &.gift {
+    background: transparent url(../icons/package.svg) no-repeat center center;
+    background-size: 16px 17px;
+  }
+  &.copy {
+    background: transparent url(../icons/copy.svg) no-repeat center center;
+    background-size: 14px 14px;
+  }
+  
+  &.smallDropdown {
+    background: transparent url(../icons/small-down.svg) no-repeat center center;
+    background-size: 10px 10px;
+  }
+  &.forward{
+    background: transparent url(../icons/forward.svg) no-repeat center center;
+    background-size: 10px 10px;
+  }
+  &.previous{
+    background: transparent url(../icons/previous.svg) no-repeat center center;
+    background-size: 10px 10px;
+  }
+
+  &.green-bookmark{
+    background: transparent url(../icons/green-bookmark.svg) no-repeat center center;
+    background-size: 17px 17px;
+  }
+  &.green-reload{
+    background: transparent url(../icons/green-reload.svg) no-repeat center center;
+    background-size: 17px 17px;
+  }
+  &.green-print{
+    background: transparent url(../icons/green-print.svg) no-repeat center center;
+    background-size: 17px 17px;
+  }
+  &.green-view{
+    background: transparent url(../icons/green-view.svg) no-repeat center center;
+    background-size: 17px 17px;
+  }
+
+  &.sidebarToggle {
+    background-color: #4F5B66;
+    -webkit-mask: url(../icons/side-bar-toggle.svg);
+    mask: url(../icons/side-bar-toggle.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 18px 18px;
+    mask-size: 18px 18px;
+  }
+
+  &.sidebarToggleWhite {
+    background-color: #fff;
+    -webkit-mask: url(../icons/side-bar-toggle.svg);
+    mask: url(../icons/side-bar-toggle.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 18px 18px;
+    mask-size: 18px 18px;
+  }
+
+}
+
+//.icon.home {
+//  background-color: var(--pWhite);
+//  -webkit-mask: url(../assets/icons/home.svg);
+//  mask: url(../assets/icons/home.svg);
+//  -webkit-mask-repeat: no-repeat;
+//  mask-repeat: no-repeat;
+//  -webkit-mask-size: cover;
+//  mask-size: cover;
+//}

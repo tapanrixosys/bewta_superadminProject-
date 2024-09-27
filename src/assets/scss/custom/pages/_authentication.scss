@@ -1,0 +1,575 @@
+// //
+// // authentication.scss
+// //
+
+// // authentication home icon
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+// .home-btn {
+//   position: absolute;
+//   top: 15px;
+//   right: 25px;
+// }
+// .spert-dot-ab {
+//   font-size: 26px;
+//   font-weight: bolder;
+//   vertical-align: top;
+//   line-height: 0.5;
+//   font-family: 'Montserrat';
+// }
+// .custom-size-nuntio,.custom-rem-ab{
+//   font-size:15px;
+//   font-family: 'Nunito';
+// }
+// .custom-forgot-pas-ab{
+//   font-size:12px;
+//   font-family: 'Nunito';
+//   font-weight:600;
+// }
+// // auth 2
+
+// .auth-logo {
+//   .auth-logo-dark {
+//     display: $display-block;
+//   }
+//   .auth-logo-light {
+//     display: $display-none;
+//   }
+// }
+
+// .auth-body-bg {
+//   background-color: #ebeff2 !important;
+// }
+
+// // auth-pass-inputgroup
+
+// .auth-pass-inputgroup {
+//   input[type="input"] + .btn .mdi-eye-outline {
+//     &:before {
+//       content: "\F06D1";
+//     }
+//   }
+// }
+// .login-text {
+//   color: white;
+//   font-family: Montserrat;
+//   font-size: 18px;
+//   letter-spacing: 2px;
+// }
+// .login-button {
+//   background-color: #42b4a7 !important;
+//   width: inherit;
+//   border-radius: 25px !important;
+//   width: 231px !important;
+//   height: 45px !important;
+// }
+// .image-align {
+//   margin-top: 2%;
+//   margin-right: 2%;
+// }
+// .input-border {
+//   border: none;
+//   max-width: 108px;
+// }
+// .space-text-row {
+//   display: flex;
+//   justify-content: space-between;
+// }
+// .signup-input-border {
+//   border: 1px solid lightgray;
+//   border-radius: 23px;
+//   height: 50px;
+// }
+// .div-border {
+//   border: 1px solid lightgray;
+//   border-radius: 23px;
+// }
+// .input-radius {
+//   border-radius: 23px !important;
+//   border-left-color: transparent !important;
+// }
+// .image-overlap {
+//   position: absolute;
+//   height: 100% !important;
+//   z-index: 2;
+//   width: -webkit-fill-available;
+// }
+// .image-bg {
+//   position: absolute;
+//   height: 100% !important;
+//   z-index: 1;
+//   width: -webkit-fill-available;
+// }
+// .input-parent-border {
+//   border-radius: 23px;
+//   border: 0.5px solid lightgray;
+// }
+// .input-border-none {
+//   border: none;
+//   background-color: transparent;
+// }
+// .input-border-none:focus {
+//   background-color: transparent !important;
+// }
+// .term-text {
+//   color: #a1368b;
+// }
+// .condition-text {
+//   font-family: Nunito;
+//   font-size: 18px;
+//   letter-spacing: 0.4px;
+// }
+// .check-box-size {
+//   height: 23px;
+//   width: 23px;
+//   border-radius: 6px !important;
+// }
+// .usa-flag-align {
+//   margin-left: 20px;
+//   margin-top: 14px;
+// }
+// .dot-size {
+//   font-size: 36px;
+// }
+// .input-flag {
+//   margin-top: 7px !important;
+//   background: transparent !important;
+//   border: none !important;
+//   border-radius: none !important;
+//   width: none !important;
+//   height: none !important;
+// }
+// .input-flag.custom-input-flag {
+// width:100%;
+// text-align:right;
+// padding-left:10px;
+// padding-right: 5px;
+// font-size: 12px;
+// }
+// .input-flagdropdowns {
+//   background-color: transparent !important;
+//   border: none !important;
+//   border-radius: none !important;
+// }
+// .register-client-ab-btn {
+
+//   width: 64%;
+
+// }
+// .signup-login-button {
+//   background-color: transparent !important;
+//   border: 2px solid white;
+//   width: 100%;
+//   border-radius: 25px;
+//   margin-top: 6%;
+// }
+
+// .login-text {
+//   color: white;
+//   font-family: Montserrat;
+//   font-size: 18px;
+// }
+// .login-button {
+//   background-color: #42b4a7 !important;
+//   width: inherit;
+//   border-radius: 25px !important;
+// }
+// .image-align {
+//   margin-top: 2%;
+//   margin-right: 2%;
+// }
+// .input-border {
+//   border: none;
+//   max-width: 108px;
+// }
+// .space-text-row {
+//   display: flex;
+//   justify-content: space-between;
+// }
+// .signup-input-border {
+//   border: 1px solid lightgray;
+//   border-radius: 23px;
+//   height: 50px;
+// }
+// .div-border {
+//   border: 1px solid lightgray;
+//   border-radius: 23px;
+// }
+// .input-radius {
+//   border-radius: 23px !important;
+//   border-left-color: transparent !important;
+// }
+// .image-overlap {
+//   position: absolute;
+//   height: 100% !important;
+//   z-index: 2;
+//   width: -webkit-fill-available;
+// }
+// .image-bg {
+//   position: absolute;
+//   height: 100% !important;
+//   z-index: 1;
+//   width: -webkit-fill-available;
+// }
+// .input-parent-border {
+//   border-radius: 23px;
+//   border: 0.5px solid lightgray;
+// }
+// .input-border-none {
+//   border: none;
+//   background-color: transparent;
+// }
+// .input-border-none:focus {
+//   background-color: transparent !important;
+// }
+// .term-text {
+//   color: #a1368b;
+// }
+// .condition-text {
+//   font-family: Nunito;
+//   font-size: 18px;
+// }
+// .check-box-size {
+//   height: 23px;
+//   width: 23px;
+//   border-radius: 6px !important;
+// }
+// .usa-flag-align {
+//   margin-left: 20px;
+//   margin-top: 14px;
+// }
+// .dot-size {
+//   font-size: 36px;
+// }
+// .input-flag {
+//   margin-top: 7px !important;
+//   background: transparent !important;
+//   border: none !important;
+//   border-radius: none !important;
+//   width: none !important;
+//   height: none !important;
+// }
+// .input-flagdropdowns {
+//   background-color: transparent !important;
+//   border: none !important;
+//   border-radius: none !important;
+// }
+
+// .flag-class {
+//   margin-left: 24px;
+//   margin-top: 6px;
+// }
+// .navbar-bg-color {
+//   background-color: white;
+// }
+// .navbar-bewta-font {
+//   font-size: x-large;
+//   color: black;
+// }
+// .login-navbar-text {
+//   color: white;
+// }
+// .display-navbar-login-btn {
+//   display: flex;
+//   justify-content: right;
+// }
+// .login-btn {
+//   background-color: #42b4a7;
+//   border-color: white;
+//   border-radius: 6px;
+//   width: 100px;
+//   height: 35px;
+// }
+// .login-btn:hover {
+//   background-color: #42b4a7;
+//   border-color: white;
+// }
+// .react-tel-input {
+//   font-family: "Nunito";
+//   font-size: 18px;
+//   position: relative;
+//   width: 100%;
+// }
+
+// .tick-bg:checked[type="checkbox"] {
+//   background-image: url("../../../images/check-mark.svg") !important;
+//   background-color: #ffffff !important;
+//   border-color: #808080 !important;
+//   border: 1px solid;
+// }
+
+// @media (max-width: 750px) {
+//   /*.column-height {
+//     height: 256px;
+//   } */
+//   .flag-class {
+//     margin-left: 1%;
+//     margin-top: 6px;
+//   }
+//   .react-tel-input .form-control {
+//     padding-left: 38px !important;
+//   }
+//   /*
+//   .text-overlap {
+//     margin-top: 15px !important;
+//   } */
+// }
+// @media (max-width: 768px) {
+//   .text-overlap {
+    
+//     color: #ffffff;
+    
+//     z-index: 2;
+//     padding-bottom:40px !important;
+//     padding-top:40px !important;
+   
+//   }
+// }
+// .text-overlap {
+  
+//   color: #ffffff;
+//   display: flex;
+//   flex-direction: column;
+//   height: 100%;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 2;
+//   text-align:center;
+//   padding:10px 50px;
+// }
+// .center-text-row {
+//   display: flex;
+//   justify-content: center;
+// }
+// .trial-text {
+//   font-family: Neuton;
+//   font-size: 36px;
+//   letter-spacing: 1px;
+//   color:#393939;
+//   margin-top:5px;
+// }
+// .services-text {
+//   font-family: Nunito;
+//   font-size: 26px;
+//   font-weight: bold;
+//   color:#393939;
+// }
+// .custom-padd {
+
+//   padding:7px;
+// }
+// .line-bar-ab img {
+
+// opacity:76%;
+
+// }
+// .icon-color {
+//   color: gray;
+// }
+// .card-width {
+//   width: 150px;
+// }
+// .space-around {
+//   display: flex;
+//   justify-content: space-around;
+// }
+// .card-border-tag {
+//   border: 1px solid #a1368b;
+//   background-color: #fcf9fd;
+//   border-radius: 8px;
+//   height: 136px;
+//   width: 110px;
+//   &.selected {
+//     border: 1px solid red;
+//   }
+// }
+// .services-text-name {
+//   color: #a1368b;
+//   font-size: 12px;
+//   font-family: Nunito;
+//   font-weight: 500;
+// }
+// .beauty-img {
+//   width: 80.63px;
+//   height: 49.63px;
+// }
+// .credit-card {
+//   font-family: Montserrat;
+//   font-size: 16px;
+//   letter-spacing: 1px;
+//   color:#80858D !important;
+// }
+
+// .card-border {
+//   border: 1px solid transparent;
+//   background-color: #ffffff;
+//   border-radius: 12px;
+// }
+// .signin-text {
+//   font-family: Nunito;
+//   font-weight: bold;
+//   letter-spacing: 1px;
+//   font-size: 27px;
+//   color: black;
+// }
+// .text-decoration {
+//   font-family: Montserrat;
+//   font-weight: bold;
+//   letter-spacing: 1px;
+//   font-size: 28px;
+// }
+// .bewta-logo {
+//   font-family: Playfair Display SC;
+//   font-weight: bold;
+//   letter-spacing: 1px;
+//   font-size: 38px;
+//   color: black;
+// }
+// .card-radius {
+//   border-radius: 20px !important;
+// }
+// .text-decoration-fillup {
+//   font-family: Montserrat;
+//   letter-spacing: 1px;
+//   font-size: 16px;
+// }
+// .text-fillup-overlap {
+//   position: absolute;
+//   color: #ffffff;
+//   margin-top: 150px;
+//   z-index: 3;
+// }
+// // authentication full page
+// .bgColor {
+//   background-color: #ebeff2 !important;
+// }
+// .auth-full-bg {
+//   background-color: #ebeff2 !important;
+//   display: flex;
+
+//   @media (min-width: 1200px) {
+//     height: 100vh;
+//   }
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     width: 300px;
+//     height: 300px;
+//     border-radius: 50%;
+//   }
+
+//   .bg-overlay {
+//     background: url("../../../images/bg-auth-overlay.png");
+//     background-size: cover;
+//     background-repeat: no-repeat;
+//     background-position: center;
+//   }
+// }
+
+// .auth-full-page-content {
+//   display: flex;
+
+//   @media (min-width: 1200px) {
+//     min-height: 100vh;
+//   }
+// }
+
+// .auth-review-carousel {
+//   &.owl-theme {
+//     .owl-dots {
+//       .owl-dot {
+//         span {
+//           background-color: rgba($primary, 0.25);
+//         }
+//         &.active,
+//         &:hover {
+//           span {
+//             background-color: $primary;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .login-container {
+//   height: 100vh;
+//   display: flex;
+//   align-items: center;
+// }
+// input:-webkit-autofill,
+// input:-webkit-autofill:focus {
+//   transition: background-color 600000s 0s, color 600000s 0s;
+// }
+// input[data-autocompleted] {
+//   background-color: transparent !important;
+// }
+// .custom-signup-flag-box .input-flag {
+
+//   width: 100%;
+//   padding: 0px 10px;
+//   /* text-align: right; */
+//   padding-left: 50px !important;
+
+// }
+// .custom-signup-flag-box .flag-dropdown {
+//   left:10px;
+// }
+// .custom-col-me {
+// padding-left: 12px !important;
+// padding-right: 12px !important ;
+
+// }
+// .custom-cards {
+// padding-left: 33px;
+// padding-right: 33px;
+// }
+// .custom-cards .custom-sign-button {
+//   width: 100% !important;
+// }
+// .custom-label-size-ab {
+
+//   font-size: 15px;
+// }
+// @media (min-width:992px) and (max-width:1100px) {
+
+//   .custom-flag-con .selected-flag{
+
+// width:auto;
+// padding-left: 5px;
+//   }
+//   .custom-flag-con .selected-flag .arrow {
+
+//     display: none;
+//   }
+
+
+// }
+// @media (max-width:768px) {
+
+//   .login-container {
+
+//     height:auto;
+//   }
+
+
+// }
+// @media (max-width:650px) {
+
+//   .custom-cards {
+//     padding-left: 12px;
+//     padding-right: 12px;
+//     }
+    
+
+// }
+// @media (max-width:330px) {
+
+//   .custom-mob-w-ab ,.custom-mob-w-abr {
+// width: 100%;
+
+//   }
+//   .custom-mob-w-abr {
+//     margin-top: 1rem !important;
+//   }
+// }

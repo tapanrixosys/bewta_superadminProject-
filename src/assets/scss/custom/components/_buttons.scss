@@ -1,0 +1,414 @@
+//
+// _buttons.scss
+//
+
+button,
+a {
+  outline: none !important;
+}
+
+// Rounded Buttons
+.btn-rounded {
+  border-radius: 30px;
+}
+
+.btn-dark,
+.btn-secondary {
+  color: $gray-200 !important;
+}
+
+.btn-outline-light {
+  color: $gray-900;
+}
+
+.btn-outline-dark,
+.btn-dark {
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle,
+  &:hover {
+    color: $light;
+  }
+}
+
+// example 1
+
+.btn-group-example {
+  .btn {
+    position: relative;
+
+    &:first-child {
+      &::before {
+        display: none;
+      }
+    }
+
+    &:before {
+      content: "OR";
+      position: absolute;
+      font-size: 10px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      border-radius: 50%;
+      background-color: $gray-600;
+      color: $light;
+      border: 1px solid $white;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+  }
+}
+
+// Example 2
+
+.btn-label {
+  position: relative;
+  padding-left: 44px;
+  .label-icon {
+    position: absolute;
+    width: 32px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba($white, 0.1);
+    border-right: 1px solid rgba($white, 0.1);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &.btn-light {
+    .label-icon {
+      background-color: rgba($dark, 0.1);
+      border-right: 1px solid rgba($dark, 0.2);
+    }
+  }
+}
+
+.btnPrimary {
+  color: $white !important;
+  background-color: $primary-btn-background-color !important;
+}
+.btnSecondary {
+  color: $white !important;
+  background-color: $light-green !important;
+}
+.btn-danger {
+  background-color: $btn-danger-color;
+  color: $white;
+}
+.btn-gray {
+  color: $white !important;
+  background-color: $btn-gray-color !important;
+}
+.btn-light-blue {
+  color: $white !important;
+  background-color: #00b3f0 !important;
+}
+.btn-give-employee-access {
+  color: $white !important;
+  background-color: #a4a4a4 !important;
+  height: 28px !important;
+  width: 109px !important;
+  padding: 0 !important;
+}
+.btn-white {
+  color: $black !important;
+  background-color: $white !important;
+  border-color: $light-gray-border;
+}
+.btn-sky-blue {
+  color: $white;
+  background-color: $btn-sky-blue-color;
+}
+.btn-light-gray {
+  color: white !important;
+  background-color: $btn-light-gray-color !important;
+}
+.btn-gray-1 {
+  color: $white;
+  background-color: #747474;
+}
+.btn-padding {
+  padding: 3px 15px 3px 15px !important;
+}
+.dialouge-action-btn {
+  padding: 5px 25px 5px 25px;
+}
+.dialouge-btn-margin {
+  margin-right: 20px;
+}
+.table-inner-edit-btn {
+  height: 26px !important;
+  width: 64px !important;
+  padding: 0 !important;
+}
+.table-inner-delete-btn {
+  height: 26px !important;
+  width: 31px !important;
+  padding: 0px !important;
+}
+.table-inner-issue-btn {
+  height: 26px !important;
+  width: 104px !important;
+  padding: 0 !important;
+}
+.table-inner-adjust-btn {
+  height: 26px !important;
+  width: 72px !important;
+  padding: 0 !important;
+}
+.table-inner-add-order-btn {
+  height: 21px !important;
+  width: 76px !important;
+  padding: 0 !important;
+}
+.table-inner-resend-btn {
+  height: 26px !important;
+  width: 125px !important;
+  padding: 0 !important;
+  font-size: 11px;
+}
+.table-title-add-btn {
+  height: 30px !important;
+  width: 145px !important;
+  padding: 0 !important;
+}
+.resource-setting-btn {
+  height: 30px !important;
+  width: 147px !important;
+  padding: 0 !important;
+  font-size: 11px;
+}
+.resource-add-btn {
+  height: 30px !important;
+  width: 139px !important;
+  padding: 0 !important;
+  font-size: 11px;
+}
+.add-location-btn {
+  height: 31px !important;
+  width: 147px !important;
+  padding: 0 !important;
+}
+.current-location-btn {
+  height: 36px !important;
+  width: 202px !important;
+  padding: 0 !important;
+}
+.add-service-btn {
+  height: 31px !important;
+  width: 147px !important;
+  padding: 0 !important;
+}
+.create-invoice-btn {
+  height: 28px !important;
+  width: 125px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-new-discount-btn {
+  height: 28px !important;
+  width: 125px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-new-stock-order-btn {
+  height: 28px !important;
+  width: 125px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-new-retail-stock-btn {
+  height: 28px !important;
+  width: 175px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-new-stock-btn {
+  height: 28px !important;
+  width: 145px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-tax-btn {
+  height: 30px !important;
+  width: 110px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-import-client-btn {
+  height: 31px !important;
+  width: 147px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-new-discount-btn {
+  height: 28px !important;
+  width: 115px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.add-new-package-btn {
+  height: 28px !important;
+  width: 140px !important;
+  font-size: 11px !important;
+}
+.copy-text-btn {
+  height: 26px !important;
+  width: 72px !important;
+  font-size: 14px !important;
+  padding: 0px;
+}
+.add-new-employee-btn {
+  height: 36px !important;
+  width: 160px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+}
+.manage-staff-access-btn {
+  height: 36px !important;
+  width: 191px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+  background-color: #a4a4a4;
+  color: white;
+}
+.save-tax-btn {
+  height: 33px !important;
+  width: 111px !important;
+  padding: 0 !important;
+  font-size: 17px !important;
+  background-color: #42b4a7;
+  color: white;
+}
+.notification-save-btn {
+  height: 31px !important;
+  width: 111px !important;
+  padding: 0 !important;
+  font-size: 17px !important;
+  background-color: #42b4a7;
+  color: white;
+}
+.cancel-tax-btn {
+  height: 33px !important;
+  width: 111px !important;
+  padding: 0 !important;
+  font-size: 17px !important;
+  background-color: #a4a4a4;
+  color: white;
+}
+
+.dialouge-cancel-btn {
+  height: 36px !important;
+  width: 111px !important;
+  padding: 0 !important;
+  font-size: 17px !important;
+  background-color: #a4a4a4;
+  font-weight: 600;
+  color: white;
+  font-family: "Roboto";
+}
+.dialouge-delete-btn {
+  height: 33px !important;
+  width: 111px !important;
+  padding: 0 !important;
+  font-size: 17px !important;
+  background-color: #42b4a7;
+  color: white;
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  font-family: "Roboto";
+  justify-content: center;
+}
+.use-current-location-btn {
+  height: 36px !important;
+  width: 202px !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+  color: white;
+}
+.download-csv-btn {
+  height: 22px !important;
+  width: 179px !important;
+  padding: 0 !important;
+  background-color: #fcfcfc;
+  font-size: 11px !important;
+  color: #80858d !important;
+  //border: #E3E6EC !important;
+}
+.upload-csv-btn {
+  height: 22px !important;
+  width: 130px !important;
+  padding: 0 !important;
+  background-color: #a1368b;
+  font-size: 11px !important;
+  color: white;
+}
+.upload-image-btn {
+  height: 30px !important;
+  width: 122px !important;
+  padding: 0 !important;
+  background-color: #42b4a7;
+  font-size: 11px !important;
+  color: white;
+}
+.upload-image-save-btn {
+  height: 31px !important;
+  width: 100px !important;
+  padding: 0 !important;
+  background-color: #42b4a7;
+  font-size: 14px !important;
+  color: white;
+}
+.upload-image-cancel-btn {
+  height: 31px !important;
+  width: 100px !important;
+  padding: 0 !important;
+  background-color: #828282;
+  font-size: 14px !important;
+  color: white;
+}
+.email-reply-forward-btn {
+  height: 24px;
+  width: 104px;
+  padding: 0px;
+  color: #434343;
+  background-color: white;
+  border-color: #434343 !important;
+}
+.space-no-wrap {
+  white-space: nowrap;
+}
+.action-button-padding {
+  padding: 18px !important;
+}
+
+.btn-gray-cust {
+  line-height: 14px;
+  background: #787878 !important;
+}
+.add-sup-cust-ab .btn-gray {
+  background: #787878 !important;
+}
+
+.table-print-btn {
+  width: 160px !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  font-size: 17px !important;
+  background-color: #a4a4a4 !important;
+  color: white !important;
+}
+
+.table-membership-btn {
+  width: 250px !important;
+}

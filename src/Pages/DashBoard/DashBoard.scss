@@ -1,0 +1,269 @@
+// @import "../../assets/scss/theme.scss";
+
+// @import "../assets/scss/theme.scss";
+
+// .apexcharts-canvas {
+//   text {
+//     fill: $text-muted !important;
+//   }
+// }
+
+.page-content {
+    overflow-y: scroll;
+  }
+  .calendar-dashboard {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .react-datepicker-ignore-onclickoutside {
+    border: none;
+  }
+  
+  #layout-wrapper
+    > div.main-content
+    > div
+    > div
+    > div:nth-child(2)
+    > div.col-xl-4
+    > div:nth-child(1)
+    > div.react-datepicker-wrapper
+    > div
+    > input {
+    border: none;
+    cursor: pointer;
+  }
+  
+  #layout-wrapper
+    > div.main-content
+    > div
+    > div
+    > div:nth-child(2)
+    > div.col-xl-4
+    > div:nth-child(1)
+    > div
+    > div
+    > div
+    > input[type="text"] {
+    border: none;
+    cursor: pointer;
+  }
+  .react-datepicker-ignore-onclickoutside {
+    width: 200px;
+  }
+  html
+    body.right-bar-enabled
+    div#root
+    div#layout-wrapper
+    div.main-content
+    div.page-content
+    div.container-fluid
+    div.row.d-flex.flex-direction-column
+    div.col-lg-3
+    div
+    div
+    div.react-datepicker-wrapper
+    div.react-datepicker__input-container
+    input {
+    width: 200px;
+  }
+  .react-datepicker__input-container > input:nth-child(1) {
+    border: none;
+    font-size: 11px;
+    width: 120px;
+    cursor: pointer;
+  }
+  
+  .total-sales {
+    width: 33.33%;
+  }
+  
+  div.col-lg:nth-child(1) > div:nth-child(1) > div:nth-child(1),
+  div.container-fluid:nth-child(2)
+    > div:nth-child(1)
+    > div:nth-child(2)
+    > div:nth-child(1)
+    > div:nth-child(1),
+  div.container-fluid:nth-child(2)
+    > div:nth-child(1)
+    > div:nth-child(3)
+    > div:nth-child(1)
+    > div:nth-child(1),
+  div.row:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1),
+  div.col-lg-5:nth-child(4) > div:nth-child(1) > div:nth-child(1),
+  div.row:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1),
+  div.row:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1),
+  html
+    body.right-bar-enabled
+    div#root
+    div#layout-wrapper
+    div.main-content
+    div.page-content
+    div.container-fluid
+    div.container-fluid
+    div.row
+    div.col-lg-7
+    div.card
+    div.card-title {
+    font-weight: 600;
+    padding: 20px 20px 0 20px;
+  }
+  li {
+    list-style-type: none;
+  }
+  .pricesWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .prices {
+    display: flex;
+  }
+  .tickets {
+    margin: 2px 4px;
+    color: #a4b0c1;
+  }
+  .blue-font {
+    color: #42b4a7;
+  }
+  .green-arrow,
+  .red-arrow {
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .green-arrow > img {
+    width: 40px;
+    height: 40px;
+  }
+  .red-arrow > img {
+    width: 55px;
+    height: 55px;
+  }
+  .green {
+    color: #a0cb54;
+  }
+  .purple {
+    color: purple;
+    margin-top: 2hr0px;
+  }
+  .scoopWrapper {
+    justify-content: end;
+  }
+  hr {
+    margin: 0;
+  }
+  div.card-body:nth-child(3) {
+    padding-top: 0;
+  }
+  .progress {
+    width: 100%;
+  }
+  .progress-bar-wrapper {
+    display: flex;
+  }
+  .space > div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .bg-prod-green {
+    background: #a0cb5a;
+  }
+  
+  .negative-margin-70 {
+    position: relative;
+    top: -70px;
+  }
+  
+  .desc {
+    margin-right: 20px;
+    color: #a4b0c1;
+    white-space: nowrap;
+    margin-bottom: 0px;
+  }
+  .grid-item-width-2 {
+    height: 150px;
+  }
+  .blue-circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #4e73df;
+    margin-top: 2px;
+    margin-left: 10px;
+  }
+  
+  .red-circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #ff536a;
+    margin-top: 2px;
+    margin-left: 10px;
+  }
+  .scoop {
+    height: 60%;
+    align-items: center;
+    margin-right: 10px;
+  }
+  .green-circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #a0cb54;
+    margin-top: 2px;
+    margin-left: 10px;
+  }
+  
+  .box-dashboard {
+    border: 1px solid #ced4da;
+    margin-bottom: 10px;
+    padding: 7.5px 18px;
+    margin-right: 10px;
+  }
+  
+  .box-dashboard p {
+    margin: 0;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    height: 100%;
+  }
+  
+  div.row:nth-child(3)
+    > div:nth-child(1)
+    > div:nth-child(1)
+    > div:nth-child(3)
+    > div:nth-child(n)
+    > div:nth-child(2)
+    > div:nth-child(1),
+  div.row:nth-child(3)
+    > div:nth-child(1)
+    > div:nth-child(1)
+    > div:nth-child(3)
+    > div:nth-child(3)
+    > div:nth-child(2)
+    > div:nth-child(1) {
+    // background-color: #a1368b;
+  }
+  
+  @media only screen and (max-width: 1500px) {
+    .boxes {
+      justify-content: end;
+    }
+  }
+  
+  @media only screen and (max-width: 990px) {
+    .boxes {
+      justify-content: start;
+      margin-bottom: 10px;
+    }
+    .scoopWrapper {
+      justify-content: start;
+    }
+  }
+  

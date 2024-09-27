@@ -1,0 +1,78 @@
+.search {
+  width: 228px;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 1px solid $light-gray-border;
+  border-right: none;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+  background-color: #F8F8F8;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid $light-gray-border;
+  background: #F8F8F8;
+  text-align: center;
+  color: $white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 15px;
+  i {
+    color: $dark-purple;
+  }
+}
+.search-box-mg {
+  margin-top: 4px;
+  border-bottom: 1px solid #e6ebf1;
+  display: flex;
+  justify-content: center;
+}
+.w-75 {
+  width: 75%;
+}
+.mg-top {
+ // margin-top: 4px;
+  position: relative;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  left: 103%;
+  width: 7px;
+  height: 7px;
+  background: transparent;
+  border-top: 0.31vmin solid #838EAB;
+  border-right: 0.31vmin solid #838EAB;
+  box-shadow: 0 0 0 lightgrey;
+  &.left {
+    transform: rotate(135deg);
+  }
+
+  &.right {
+    transform: rotate(-45deg);
+    margin-top: -10px;
+  }
+}
+.margin-left-15{
+  margin-left: 13px !important;
+  margin-right: 10px;
+}
+.custom-search-web-ab .search {
+justify-content: end;
+padding-right:30px;
+}
+.custom-search-web-ab .search  button{
+
+background:none;
+border:none;
+
+}
