@@ -1,15 +1,13 @@
 import "./App.css";
-import {Toaster} from 'react-hot-toast'
-import Sidebar from "./Pages/DashBoard/Sidebar/Sidebar";
+import RoutePage from "./Routes/Route";
 
-import Home from "./Pages/Routes/Home/Home";
+// import RoutePage from "./Pages/Routes/Route";
 
 function App() {
   return (
     <div className="App">
       
-        <Home></Home>
-        <Toaster />
+        <RoutePage/>
         
       
     </div>

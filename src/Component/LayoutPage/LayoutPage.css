@@ -1,0 +1,22 @@
+.layout-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent overflow on the entire layout */
+}
+
+.sidebar {
+  background-color: #f8f9fa; 
+  width: 250px; /* Set a fixed width for the sidebar */
+  flex-shrink: 0; /* Prevent the sidebar from shrinking */
+  height: 100vh; /* Make the sidebar span the full height */
+  position: fixed; /* Fix the sidebar in place */
+  overflow-y: auto; /* Allow scrolling within the sidebar if needed */
+}
+
+.content {
+  flex: 1; /* Allow the content to take up remaining space */
+  margin-left: 250px; /* Add margin to accommodate the fixed sidebar */
+  overflow-y: auto; /* Enable scrolling for the content */
+  height: 100vh; /* Full height to enable scrolling */
+}

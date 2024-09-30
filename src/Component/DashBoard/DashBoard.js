@@ -36,19 +36,15 @@ import "./DashBoard.scss";
 import SelectDate from "./SelectDate";
 //i18n
 import { withTranslation } from "react-i18next";
-import Sidebar from "./Sidebar/Sidebar";
 
-
-//redux
-// import { useSelector, useDispatch } from "react-redux"
 
 const Dashboard = (props) => {
+
+
   const [modal, setmodal] = useState(false);
   const [subscribemodal, setSubscribemodal] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
-  // const { chartsData } = useSelector(state => ({
-  //   chartsData: state.Dashboard.chartsData,
-  // }))
+
 
   const reports = [
     { title: "Orders", iconClass: "bx-copy-alt", description: "1,235" },
@@ -87,17 +83,12 @@ const Dashboard = (props) => {
   // document.title="Dashboard | Skote - React Admin & Dashboard Template";
 
   return (
-    <React.Fragment>
-      {/* <Layout /> */}
-      {/* <Sidebar/> */}
-      <div className="page-content">
-       
+    <React.Fragment >
+
+      <div className="page-content"  style={{marginTop:"30px"}}>
+
         <div className="container-fluid">
-          {/* Render Breadcrumb */}
-          {/*  <Breadcrumbs
-            title={props.t("Dashboards")}
-            breadcrumbItem={props.t("Dashboard")}
-          /> */}
+
           <div
             className="row grid d-flex "
             data-masonry='{"percentPosition": true }'
