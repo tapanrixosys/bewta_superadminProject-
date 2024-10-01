@@ -12,18 +12,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Form, InputGroup } from "react-bootstrap";
 import { gql, useLazyQuery } from "@apollo/client";
 
-const Tenants = gql`
+
+const Tenants  = gql`
   query {
-    getAllTentants {
+    getAllTentants { 
       _id
       firstName
       lastName
       email
-      phoneNumber
-      roleId
-      isAdmin
-      locationIds
-      permissionIds
+      phoneNumber 
+      roleId       
+      isAdmin          
+      locationIds    
+      permissionIds  
       serviceIds
     }
   }
@@ -37,6 +38,7 @@ export default function TenantsPage() {
 
   const [fetchTenants, { data, error }] = useLazyQuery(Tenants);
   const [superAdminData, setSuperAdminData] = useState([]);
+  
 
   useEffect(() => {
     if (data && data.getAllTentants) {
@@ -175,7 +177,7 @@ export default function TenantsPage() {
                   <td>{admin.lastName}</td>
                   <td>{admin.email}</td>
                   <td>{admin.phoneNumber}</td>
-                  <td>
+                  <td> 
                     <EditIcon
                       style={{
                         color: "black",
