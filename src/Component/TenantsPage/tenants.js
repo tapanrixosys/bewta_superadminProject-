@@ -10,7 +10,8 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Form, InputGroup } from "react-bootstrap";
-import { gql, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery,useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
 
 const Tenants = gql`
   query {
@@ -29,14 +30,74 @@ const Tenants = gql`
   }
 `;
 
+const COLLECTION = gql`
+  mutation addTenantsMutation(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $phoneNumber: String!
+    $roleId: Int!
+    $isAdmin: String!
+    $locationIds:[Int]!
+    $permissionIds:[Int]!
+    $serviceIds:[Int]!
+  ) {
+    addTenantsMutation(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+      phoneNumber: $phoneNumber
+      roleId: $roleId
+      isAdmin: $isAdmin
+      locationIds:$locationIds
+      permissionIds:$permissionIds
+      serviceIds:$serviceIds
+    ) {
+      roleId
+      firstName
+      lastName
+      password
+      email
+      isAdmin
+      phoneNumber
+      locationIds
+      permissionIds
+      serviceIds
+    }
+  }`
+
 export default function TenantsPage() {
   const [open, setOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [roleId, setRoleId] = useState(1);
+  const [isAdmin, setIsAdmin] = useState("yes");
+  const [locationIds, setLocationIds] = useState([1]);
+  const [permissionIds, setPermissionIds] = useState([1]);
+  const [serviceIds, setServiceIds] = useState([1]);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [fetchTenants, { data, error }] = useLazyQuery(Tenants);
+
   const [superAdminData, setSuperAdminData] = useState([]);
+
+  const [addTenantsMutation] = useMutation(COLLECTION, {
+    onCompleted: (data) => {
+      toast.success("Tenant added Successfullly", { position: "top-right" });
+      handleClose();
+      fetchTenants(); // Refetch the tenants after adding a new one
+    },
+    onError: (error) => {
+      toast.error(`Login failed: ${error.message}`, { position: "top-right" });
+    },
+  });
 
   useEffect(() => {
     if (data && data.getAllTentants) {
@@ -54,6 +115,23 @@ export default function TenantsPage() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCreate = () => {
+    addTenantsMutation({
+      variables: {
+        firstName,
+        lastName,
+        email,
+        password,
+        phoneNumber,
+        roleId,
+        isAdmin,
+        locationIds,
+        permissionIds,
+        serviceIds,
+      },
+    });
   };
 
   return (
@@ -89,7 +167,7 @@ export default function TenantsPage() {
                 style={{ width: 500, maxWidth: "100%" }}
                 size="lg"
               >
-                <Form.Control type="text" name="firstname" />
+                <Form.Control type="text" name="firstname" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
               </InputGroup>
 
               <label for="exampleInputEmail1">Last Name</label>
@@ -98,7 +176,7 @@ export default function TenantsPage() {
                 style={{ width: 500, maxWidth: "100%" }}
                 size="lg"
               >
-                <Form.Control type="text" name="lastname" />
+                <Form.Control type="text" name="lastname"  value={lastName} onChange={(e) => setLastName(e.target.value)} />
               </InputGroup>
 
               <label for="exampleInputEmail1">Email</label>
@@ -107,7 +185,7 @@ export default function TenantsPage() {
                 style={{ width: 500, maxWidth: "100%" }}
                 size="lg"
               >
-                <Form.Control type="text" name="email" />
+                <Form.Control type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </InputGroup>
 
               <label for="exampleInputEmail1">Password</label>
@@ -116,7 +194,7 @@ export default function TenantsPage() {
                 style={{ width: 500, maxWidth: "100%" }}
                 size="lg"
               >
-                <Form.Control type="text" name="password" />
+                <Form.Control type="text" name="password"  value={password} onChange={(e) => setPassword(e.target.value)} />
               </InputGroup>
 
               <label for="exampleInputEmail1">Phone</label>
@@ -125,7 +203,7 @@ export default function TenantsPage() {
                 style={{ width: 500, maxWidth: "100%" }}
                 size="lg"
               >
-                <Form.Control type="text" name="password" />
+                <Form.Control type="text" name="password" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}  />
               </InputGroup>
 
               <div className="d-flex flex-row mt-4 justify-content-end">
@@ -142,6 +220,7 @@ export default function TenantsPage() {
                     marginLeft: "20px",
                     fontWeight: "bold",
                   }}
+                  onClick={handleCreate}
                 >
                   Create
                 </Button>
