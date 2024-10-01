@@ -129,7 +129,7 @@ export default function TenantsPage() {
               <th scope="col">ID</th>
               <th scope="col"> Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Phone</th>
+              {/* <th scope="col">Phone</th> */}
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -140,8 +140,8 @@ export default function TenantsPage() {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{team.name}</td>
-                  <td>{team.email}</td>
-                  <td>{team.phone}</td>
+                  <td>{team.email}</td> 
+                  {/* <td>{team.phone}</td> */}
                   <td>
                     <EditIcon
                       style={{
