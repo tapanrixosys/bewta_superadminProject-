@@ -6,25 +6,25 @@ import bewta from "../assets/image/bewta-logo.svg";
 import bg from "../assets/image/image-bg.png";
 import { gql, useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast'; 
 
 const SuperAdmin = gql`
   query SuperAdmin($email: String!, $password: String!) {
-    superadmin(email: $email, password: $password) {
+    superadmin(email: $email, password: $password) { 
       _id
       name
       email
       isAdmin
     }
   }
-`;
+`; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
  
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
  
 
   const [superadmin, { data, loading, error }] = useLazyQuery(
@@ -43,7 +43,7 @@ const Login = () => {
         state: { SuperAdmin: data.superadmin },
       });
       toast.success("Login Successful", { position: "top-right" });
-    }
+    }  
 
     if (error) {
       // Show error toast when login fails
@@ -103,7 +103,7 @@ const Login = () => {
                 <label className="input-label px-2 py-1  d-flex justify-content-center align-items-center">
                   <input
                     type="password"
-                    value={password}
+                    value={password} 
                     name="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
