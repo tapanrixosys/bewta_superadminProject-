@@ -90,7 +90,7 @@ const Sidebar = () => {
 
         <div className="bottom-content">
           <li className="nav-link"> 
-            <a href="#">
+            <a href="login">
               <i className="bx bx-log-out icons text-light"></i>
               <span className="text text-white nav-text">Log Out</span>
             </a>          

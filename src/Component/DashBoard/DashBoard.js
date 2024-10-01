@@ -131,10 +131,7 @@ const Dashboard = (props) => {
                     border: "0.1px solid #ddd",
                   }}
                 >
-                  {
-                    JSON.parse(localStorage.getItem("userCurrentLocation"))
-                      ?.name
-                  }
+                  
                 </button>
                 <div
                   className="dropdown-menu "
