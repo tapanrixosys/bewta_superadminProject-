@@ -5,7 +5,7 @@ import {
   Dialog,
   DialogContent,
   useMediaQuery,
-  useTheme,
+  useTheme, 
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,7 +29,7 @@ const Tenants  = gql`
       serviceIds
     }
   }
-`;
+`; 
 
 const COLLECTION = gql`
   mutation addTenantsMutation(
