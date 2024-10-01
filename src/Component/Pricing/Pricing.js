@@ -88,18 +88,7 @@ export default function Pricing() {
       toast.error(`Error: ${error.message}`); // Show error message
     },
   });
-  
 
-  const handleClickOpen = (plan) => {
-    // if (plan) {
-    //   setSelectedPlan(plan);  // Set the selected plan for editing
-    //   setIsEditing(true);     // Set the flag for editing mode
-    // } else {
-    //   setSelectedPlan({ planname: '', description: '', price: '', currency: '', duration: '' }); // Clear form for adding a new plan
-    //   setIsEditing(false);    // Set the flag for adding mode
-    // }
-    setOpen(true);
-  };
   useEffect(() => {
     if (data && data.getAllPricingPlans) {
       setAllPricingPlan(data.getAllPricingPlans);
@@ -109,6 +98,11 @@ export default function Pricing() {
   useEffect(() => {
     fetchPricingPlans();
   }, [fetchPricingPlans]);
+  
+
+  const handleClickOpen = (plan) => {
+    setOpen(true);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -122,19 +116,6 @@ export default function Pricing() {
     setStartDate('');
     setEndDate('');
   };
-
-  // const handleSaveOrUpdate = () => {
-  //   if (isEditing) {
-  //     // Update the existing plan
-  //     setPlans(plans.map(plan => 
-  //       plan.planname === selectedPlan.planname ? selectedPlan : plan
-  //     ));
-  //   } else {
-  //     // Add a new plan
-  //     setPlans([...plans, selectedPlan]);
-  //   }
-  //   handleClose();  // Close the modal after saving or updating
-  // };
 
   return (
     <div className="container px-4 py-4">
