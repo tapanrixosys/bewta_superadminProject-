@@ -131,7 +131,7 @@ export default function Pricing() {
           fullScreen={fullScreen}
           open={open}
           aria-labelledby="responsive-dialog-title"
-        >
+        > 
           <DialogContent>
             <div className='d-flex flex-column justify-content-end'>
               <label htmlFor="exampleInputEmail1">Plan Name</label>
@@ -142,7 +142,7 @@ export default function Pricing() {
                   value={planName}
                   onChange={(e) => setPlanName(e.target.value)}
                 />
-              </InputGroup>
+              </InputGroup> 
 
               <label htmlFor="exampleInputEmail1">Plan Description</label>
               <InputGroup className="mb-3" style={{ width: 500, maxWidth: '100%' }} size="lg">
@@ -161,7 +161,7 @@ export default function Pricing() {
                   name="planPrice"
                   value={planPrice}
                   onChange={(e) => setPlanPrice(e.target.value)}
-                />
+                /> 
               </InputGroup>
 
               <label htmlFor="exampleInputEmail1">Currency</label>
