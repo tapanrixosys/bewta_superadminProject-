@@ -1,18 +1,15 @@
-
-
 import React, { useEffect, useState } from 'react';
 import {
-  Table, TableBody, Card, Button, Dialog, DialogActions, DialogContent,
-  FormControl, Select, Container, TableContainer, TableHead, TableRow,
-  TableCell, TextField, MenuItem, useMediaQuery, useTheme, TextareaAutosize
+   Card, Button, Dialog, DialogContent, useMediaQuery, useTheme
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Form, InputGroup, } from 'react-bootstrap';
-import { gql, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery,useMutation } from "@apollo/client";
+import toast, { Toaster } from "react-hot-toast";
 
 
-const Tenants = gql`
+const Teams = gql`
   query {
   getAllTeams {
     _id
@@ -21,21 +18,53 @@ const Tenants = gql`
     name
   }
 }
-
 `;
-
+const CREATETEAM = gql`
+  mutation createSuperAdmin(
+  $name: String!,
+  $password: String!,
+  $email: String!,
+  $isAdmin: String!,
+) {
+  createSuperAdmin(
+    name: $name,
+    password: $password,
+    email: $email,
+    isAdmin: $isAdmin,
+  ) {
+    name
+    password
+    email
+    isAdmin
+  }
+}`
 
 
 export default function TenantsPage() {
 
   const [open, setOpen] = useState(false);
+  const [teamData, setTeamData] = useState([]);
+  const [name,setName]=useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState("Yes");
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 
-  const [fetchTeam, { data, error }] = useLazyQuery(Tenants);
-  const [teamData, setTeamData] = useState([]);
+  const [fetchTeam, { data, error }] = useLazyQuery(Teams);
+
+  const [createSuperAdmin] = useMutation(CREATETEAM, {
+    onCompleted: (data) => {
+      toast.success("Team added Successfullly", { position: "top-right" });
+      handleClose();
+      fetchTeam(); // Refetch the tenants after adding a new one
+    },
+    onError: (error) => {
+      toast.error(`Team creation failed: ${error.message}`, { position: "top-right" });
+    },
+  });
 
   useEffect(() => {
     if (data && data.getAllTeams) {
@@ -57,6 +86,17 @@ export default function TenantsPage() {
   const handleClose = () => {
     setOpen(false);
 
+  };
+
+  const handleCreate = () => {
+    createSuperAdmin({
+      variables: {
+        name,
+        email,
+        password,
+        isAdmin,
+      },
+    });
   };
 
   return (
@@ -82,7 +122,8 @@ export default function TenantsPage() {
                 <Form.Control
                   type="text"
                   name="name"
-
+                  value={name} 
+                  onChange={(e) => setName(e.target.value)}
                 />
               </InputGroup>
 
@@ -91,7 +132,8 @@ export default function TenantsPage() {
                 <Form.Control
                   type="text"
                   name="email"
-
+                  value={email}
+                   onChange={(e) => setEmail(e.target.value)}
                 />
               </InputGroup>
 
@@ -100,6 +142,8 @@ export default function TenantsPage() {
                 <Form.Control
                   type="text"
                   name="password"
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </InputGroup>
 
@@ -110,6 +154,7 @@ export default function TenantsPage() {
                 <Button
 
                   style={{ background: "#A1368B", color: "white", marginLeft: "20px", fontWeight: "bold" }}
+                  onClick={handleCreate}
                 >Create</Button>
 
               </div>
@@ -129,7 +174,6 @@ export default function TenantsPage() {
               <th scope="col">ID</th>
               <th scope="col"> Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Phone</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -141,7 +185,6 @@ export default function TenantsPage() {
                   <td>{index + 1}</td>
                   <td>{team.name}</td>
                   <td>{team.email}</td>
-                  <td>{team.phone}</td>
                   <td>
                     <EditIcon
                       style={{
@@ -163,7 +206,7 @@ export default function TenantsPage() {
           </tbody>
         </table>
       </Card>
-
+      <Toaster />
     </div>
 
   );
