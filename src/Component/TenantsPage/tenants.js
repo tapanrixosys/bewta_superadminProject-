@@ -11,7 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Form, InputGroup } from "react-bootstrap";
 import { gql, useLazyQuery,useMutation } from "@apollo/client";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const Tenants  = gql`
@@ -97,7 +97,7 @@ export default function TenantsPage() {
       fetchTenants(); // Refetch the tenants after adding a new one
     },
     onError: (error) => {
-      toast.error(`Login failed: ${error.message}`, { position: "top-right" });
+      toast.error(`Tenant creation failed: ${error.message}`, { position: "top-right" });
     },
   });
 
@@ -276,6 +276,7 @@ export default function TenantsPage() {
           </tbody>
         </table>
       </Card>
+      <Toaster />
     </div>
   );
 }
