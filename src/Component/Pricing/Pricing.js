@@ -10,6 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 const pricingPlan  = gql`
  query {
   getAllPricingPlans {
+    id
     planName
     planDescription
     planPrice
@@ -59,11 +60,66 @@ const CREATE_PRICE_PLAN_MUTATION = gql`
   }
 `;
 
+const DELETE_PRICE_PLAN_MUTATION = gql`
+  mutation DeletePricePlan($id: String!) {
+    deletePricePlanMutation(id: $id) {
+      planName
+      planDescription
+      planPrice
+      planDuration
+      currency
+      productId
+      start_date
+      end_date
+    }
+  }
+`;
+const UPDATE_PRICE_PLAN_MUTATION = gql`
+  mutation UpdatePricePlan(
+    $id: String!,
+    $planName: String!,
+    $planDescription: String!,
+    $planPrice: Float!,
+    $planDuration: String!,
+    $currency: String!,
+    $priceId: String!,
+    $productId: String!,
+    $start_date: String!,
+    $end_date: String!
+  ) {
+    updatePricePlanMutation(
+      id: $id,
+      planName: $planName,
+      planDescription: $planDescription,
+      planPrice: $planPrice,
+      planDuration: $planDuration,
+      currency: $currency,
+      priceId: $priceId,
+      productId: $productId,
+      start_date: $start_date,
+      end_date: $end_date
+    ) {
+      id
+      planName
+      planDescription
+      planPrice
+      planDuration
+      currency
+      priceId
+      productId
+      start_date
+      end_date
+    }
+  }
+`;
+
+
 
 export default function Pricing() {
 
   const [open, setOpen] = useState(false);
   const [allPricingPlan,setAllPricingPlan]=useState([]);
+
   const [planName, setPlanName] = useState('');
   const [planDescription, setPlanDescription] = useState('');
   const [planPrice, setPlanPrice] = useState('');
@@ -74,10 +130,15 @@ export default function Pricing() {
   const [start_date, setStartDate] = useState('01.10.2024');
   const [end_date, setEndDate] = useState('01.10.2025');
 
+  const [editMode, setEditMode] = useState(false);
+  const [currentPlanId, setCurrentPlanId] = useState(null);
+
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  // get price plan
   const [fetchPricingPlans, { data, error }] = useLazyQuery(pricingPlan);
+// create price plan
   const [createPricePlan, { loading: creating }] = useMutation(CREATE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
       fetchPricingPlans(); // Refresh the pricing plans after creation
@@ -86,6 +147,27 @@ export default function Pricing() {
     },
     onError: (error) => {
       toast.error(`Error: ${error.message}`); // Show error message
+    },
+  });
+// delete price plan
+  const [deletePricePlan] = useMutation(DELETE_PRICE_PLAN_MUTATION, {
+    onCompleted: () => {
+      fetchPricingPlans(); // Refresh the pricing plans after deletion
+      toast.success('Pricing plan deleted successfully!');
+    },
+    onError: (error) => {
+      toast.error(`Error: ${error.message}`); // Show error message
+    },
+  });
+  // update price plan 
+  const [updatePricePlan] = useMutation(UPDATE_PRICE_PLAN_MUTATION, {
+    onCompleted: () => {
+      fetchPricingPlans();
+      handleClose();
+      toast.success('Pricing plan updated successfully!');
+    },
+    onError: (error) => {
+      toast.error(`Error: ${error.message}`);
     },
   });
 
@@ -100,12 +182,33 @@ export default function Pricing() {
   }, [fetchPricingPlans]);
   
 
-  const handleClickOpen = (plan) => {
+  const handleClickOpen = (plan = null) => {
     setOpen(true);
+    if (plan) {
+      setEditMode(true);
+      setCurrentPlanId(plan.id);
+      // Populate form fields with the plan's details
+      setPlanName(plan.planName);
+      setPlanDescription(plan.planDescription);
+      setPlanPrice(plan.planPrice);
+      setPlanDuration(plan.planDuration);
+      setCurrency(plan.currency);
+      setPriceId(plan.priceId);
+      setProductId(plan.productId);
+      setStartDate('01.10.2024');
+      setEndDate('01.10.2025');
+    } else {
+      setEditMode(false);
+      resetFormFields();
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
+    resetFormFields();
+  };
+
+  const resetFormFields = () => {
     setPlanName('');
     setPlanDescription('');
     setPlanPrice('');
@@ -116,6 +219,48 @@ export default function Pricing() {
     setStartDate('');
     setEndDate('');
   };
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this plan?')) {
+      deletePricePlan({ variables: { id } });
+    }
+  };
+
+  const handleSave = () => {
+    if (editMode) {
+      // Update the price plan
+      updatePricePlan({
+        variables: {
+          id: currentPlanId,
+          planName,
+          planDescription,
+          planPrice: parseFloat(planPrice),
+          planDuration,
+          currency,
+          priceId,
+          productId,
+          start_date,
+          end_date,
+        },
+      });
+    } else {
+      // Create a new price plan
+      createPricePlan({
+        variables: {
+          planName,
+          planDescription,
+          planPrice: parseFloat(planPrice),
+          planDuration,
+          currency,
+          priceId,
+          productId,
+          start_date,
+          end_date,
+        },
+      });
+    }
+  };
+
 
   return (
     <div className="container px-4 py-4">
@@ -197,22 +342,8 @@ export default function Pricing() {
                 <Button className='text-white bg-danger fw-bold' onClick={handleClose}>Cancel</Button>
                 <Button
                   style={{ background: "#A1368B", color: "white", marginLeft: "20px", fontWeight: "bold" }}
-                  onClick={() => {
-                    createPricePlan({
-                      variables: {
-                        planName,
-                        planDescription,
-                        planPrice: parseFloat(planPrice), // Convert to float
-                        planDuration,
-                        currency,
-                        priceId,
-                        productId,
-                        start_date,
-                        end_date,
-                      },
-                    });
-                  }}
-                >Create</Button>
+                  onClick={handleSave}
+                >{editMode ? 'Update Plan' : 'Save Plan'}</Button>
 
               </div>
             </div>
@@ -240,8 +371,8 @@ export default function Pricing() {
               <td>{price.planPrice}</td>
               <td>{price.planDuration}</td>
               <td>
-                <EditIcon style={{ color: "black", cursor: "pointer", marginRight: "10px" }} />
-                <DeleteIcon style={{ color: "red", cursor: "pointer" }} />
+                <EditIcon style={{ color: "black", cursor: "pointer", marginRight: "10px" }}  onClick={() => handleClickOpen(price)}/>
+                <DeleteIcon style={{ color: "red", cursor: "pointer" }}   onClick={() => handleDelete(price.id)}/>
               </td>
             </tr>
               ))
