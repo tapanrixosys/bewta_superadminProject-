@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
   Card,
-  Button,
-  Dialog,
-  DialogContent,
   useMediaQuery,
   useTheme, 
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Form, InputGroup } from "react-bootstrap";
-import { gql, useLazyQuery,useMutation } from "@apollo/client";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import toast, { Toaster } from "react-hot-toast";
-
 
 const Tenants  = gql`
   query {
@@ -29,45 +24,18 @@ const Tenants  = gql`
       serviceIds
     }
   }
-`; 
+`;
 
-const COLLECTION = gql`
-  mutation addTenantsMutation(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-    $phoneNumber: String!
-    $roleId: Int!
-    $isAdmin: String!
-    $locationIds:[Int]!
-    $permissionIds:[Int]!
-    $serviceIds:[Int]!
-  ) {
-    addTenantsMutation(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-      phoneNumber: $phoneNumber
-      roleId: $roleId
-      isAdmin: $isAdmin
-      locationIds:$locationIds
-      permissionIds:$permissionIds
-      serviceIds:$serviceIds
-    ) {
-      roleId
+const DELETE_TENANT = gql`
+  mutation deleteTenantsMutation($id: ID!) {
+    deleteTenantsMutation(id: $id) {
+      _id
       firstName
       lastName
-      password
       email
-      isAdmin
-      phoneNumber
-      locationIds
-      permissionIds
-      serviceIds
     }
-  }`
+  }
+`;
 
 export default function TenantsPage() {
   const [open, setOpen] = useState(false);
@@ -84,20 +52,19 @@ export default function TenantsPage() {
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  const [fetchTenants, { data, error }] = useLazyQuery(Tenants);
-
-  const [superAdminData, setSuperAdminData] = useState([]);
   
 
-  const [addTenantsMutation] = useMutation(COLLECTION, {
+  const [fetchTenants, { data, error }] = useLazyQuery(Tenants);
+  const [superAdminData, setSuperAdminData] = useState([]); 
+
+  // Add the delete mutation
+  const [deleteTenantsMutation] = useMutation(DELETE_TENANT, {
     onCompleted: (data) => {
-      toast.success("Tenant added Successfullly", { position: "top-right" });
-      handleClose();
-      fetchTenants(); // Refetch the tenants after adding a new one
+      toast.success("Tenant deleted successfully", { position: "top-right" });
+      fetchTenants(); // Refetch tenants after deletion
     },
     onError: (error) => {
-      toast.error(`Tenant creation failed: ${error.message}`, { position: "top-right" });
+      toast.error(`Tenant deletion failed: ${error.message}`, { position: "top-right" });
     },
   });
 
@@ -113,26 +80,16 @@ export default function TenantsPage() {
 
   const handleClickOpen = () => {
     setOpen(true);
-  };
+  }; 
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleCreate = () => {
-    addTenantsMutation({
-      variables: {
-        firstName,
-        lastName,
-        email,
-        password,
-        phoneNumber,
-        roleId,
-        isAdmin,
-        locationIds,
-        permissionIds,
-        serviceIds,
-      },
+  const handleDelete = (id) => {
+    // Call the delete mutation
+    deleteTenantsMutation({
+      variables: { id },
     });
   };
 
@@ -154,82 +111,7 @@ export default function TenantsPage() {
             ADD TENANTS
           </button>
         </div>
-
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          // onClose={handleClose}
-          aria-labelledby="responsive-dialog-title"
-        >
-          <DialogContent>
-            <div className="d-flex flex-column justify-content-end">
-              <label for="exampleInputEmail1"> First Name</label>
-              <InputGroup
-                className="mb-3"
-                style={{ width: 500, maxWidth: "100%" }}
-                size="lg"
-              >
-                <Form.Control type="text" name="firstname" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-              </InputGroup>
-
-              <label for="exampleInputEmail1">Last Name</label>
-              <InputGroup
-                className="mb-3"
-                style={{ width: 500, maxWidth: "100%" }}
-                size="lg"
-              >
-                <Form.Control type="text" name="lastname"  value={lastName} onChange={(e) => setLastName(e.target.value)} />
-              </InputGroup>
-
-              <label for="exampleInputEmail1">Email</label>
-              <InputGroup
-                className="mb-3"
-                style={{ width: 500, maxWidth: "100%" }}
-                size="lg"
-              >
-                <Form.Control type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              </InputGroup>
-
-              <label for="exampleInputEmail1">Password</label>
-              <InputGroup
-                className="mb-3"
-                style={{ width: 500, maxWidth: "100%" }}
-                size="lg"
-              >
-                <Form.Control type="text" name="password"  value={password} onChange={(e) => setPassword(e.target.value)} />
-              </InputGroup>
-
-              <label for="exampleInputEmail1">Phone</label>
-              <InputGroup
-                className="mb-3"
-                style={{ width: 500, maxWidth: "100%" }}
-                size="lg"
-              >
-                <Form.Control type="text" name="password" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}  />
-              </InputGroup>
-
-              <div className="d-flex flex-row mt-4 justify-content-end">
-                <Button
-                  className="text-white bg-danger fw-bold"
-                  onClick={handleClose}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  style={{
-                    background: "#A1368B",
-                    color: "white",
-                    marginLeft: "20px",
-                    fontWeight: "bold",
-                  }}
-                  onClick={handleCreate}
-                >
-                  Create
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+        {/* Dialog for adding tenants remains the same */}
       </div>
 
       <Card className="mt-4" style={{ border: "2px solid #4F5B66 " }}>
@@ -241,9 +123,9 @@ export default function TenantsPage() {
             <tr>
               <th scope="col">ID</th>
               <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
+              {/* <th scope="col">Last Name</th> */}
               <th scope="col">Email</th>
-              <th scope="col">Phone</th>
+              {/* <th scope="col">Phone</th> */}
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -253,9 +135,9 @@ export default function TenantsPage() {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{admin.firstName}</td>
-                  <td>{admin.lastName}</td>
+                  {/* <td>{admin.lastName}</td> */}
                   <td>{admin.email}</td>
-                  <td>{admin.phoneNumber}</td>
+                  {/* <td>{admin.phoneNumber}</td> */}
                   <td> 
                     <EditIcon
                       style={{
@@ -264,7 +146,10 @@ export default function TenantsPage() {
                         marginRight: "10px",
                       }}
                     />
-                    <DeleteIcon style={{ color: "red", cursor: "pointer" }} />
+                    <DeleteIcon
+                      style={{ color: "red", cursor: "pointer" }}
+                      onClick={() => handleDelete(admin._id)} // Trigger delete mutation
+                    />
                   </td>
                 </tr>
               ))

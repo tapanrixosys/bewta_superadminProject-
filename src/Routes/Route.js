@@ -34,6 +34,8 @@ import Pricing from "../Component/Pricing/Pricing";
 import Team from "../Component/TeamPage/Team";
 import FaqPage from "../Component/Faq/faq";
 import SettingPage from "../Component/SettingPage/Setting";
+import SupportViewdetails from "../Component/SupportPage/SupportViewdetails";
+
 
 export default function RoutePage() {
    
@@ -49,6 +51,7 @@ export default function RoutePage() {
                 { path: '/tenants', element: <Tenants /> },
                 { path: '/price', element: <Pricing /> },
                 { path: '/support', element: <Support /> },
+                { path: '/support-viewdetails/:id', element: <SupportViewdetails /> },
                 { path: '/team', element: <Team /> },
                 { path: '/faq', element: <FaqPage /> },
                 { path: '/setting', element: <SettingPage /> },

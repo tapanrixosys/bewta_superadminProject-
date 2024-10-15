@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Dialog, DialogContent, useMediaQuery, useTheme
+import {
+  Card, Button, Dialog, DialogContent, useMediaQuery, useTheme
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Form, InputGroup, } from 'react-bootstrap';
-import { gql, useLazyQuery,useMutation } from "@apollo/client";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import toast, { Toaster } from "react-hot-toast";
 
-const pricingPlan  = gql`
+const pricingPlan = gql`
  query {
   getAllPricingPlans {
     id
@@ -22,7 +23,7 @@ const pricingPlan  = gql`
     end_date
   }
 }
-`; 
+`;
 
 const CREATE_PRICE_PLAN_MUTATION = gql`
   mutation CreatePricePlan(
@@ -60,7 +61,7 @@ const CREATE_PRICE_PLAN_MUTATION = gql`
   }
 `;
 
-const DELETE_PRICE_PLAN_MUTATION = gql`
+const DELETE_PRICE_PLAN_MUTATION = gql`    
   mutation DeletePricePlan($id: String!) {
     deletePricePlanMutation(id: $id) {
       planName
@@ -118,7 +119,7 @@ const UPDATE_PRICE_PLAN_MUTATION = gql`
 export default function Pricing() {
 
   const [open, setOpen] = useState(false);
-  const [allPricingPlan,setAllPricingPlan]=useState([]);
+  const [allPricingPlan, setAllPricingPlan] = useState([]);
 
   const [planName, setPlanName] = useState('');
   const [planDescription, setPlanDescription] = useState('');
@@ -138,18 +139,19 @@ export default function Pricing() {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   // get price plan
   const [fetchPricingPlans, { data, error }] = useLazyQuery(pricingPlan);
-// create price plan
+  // create price plan
   const [createPricePlan, { loading: creating }] = useMutation(CREATE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
       fetchPricingPlans(); // Refresh the pricing plans after creation
       handleClose(); // Close the dialog
-      toast.success('Pricing plan created successfully!'); 
+      toast.success('Pricing plan created successfully!');
     },
     onError: (error) => {
       toast.error(`Error: ${error.message}`); // Show error message
     },
   });
-// delete price plan
+
+  // delete price plan
   const [deletePricePlan] = useMutation(DELETE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
       fetchPricingPlans(); // Refresh the pricing plans after deletion
@@ -159,6 +161,8 @@ export default function Pricing() {
       toast.error(`Error: ${error.message}`); // Show error message
     },
   });
+
+
   // update price plan 
   const [updatePricePlan] = useMutation(UPDATE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
@@ -180,7 +184,7 @@ export default function Pricing() {
   useEffect(() => {
     fetchPricingPlans();
   }, [fetchPricingPlans]);
-  
+
 
   const handleClickOpen = (plan = null) => {
     setOpen(true);
@@ -244,7 +248,7 @@ export default function Pricing() {
         },
       });
     } else {
-      // Create a new price plan
+      // Create a new price plan 
       createPricePlan({
         variables: {
           planName,
@@ -276,8 +280,8 @@ export default function Pricing() {
           fullScreen={fullScreen}
           open={open}
           aria-labelledby="responsive-dialog-title"
-        > 
-          <DialogContent>
+        >
+          <DialogContent> 
             <div className='d-flex flex-column justify-content-end'>
               <label htmlFor="exampleInputEmail1">Plan Name</label>
               <InputGroup className="mb-3" style={{ width: 500, maxWidth: '100%' }} size="lg">
@@ -287,7 +291,7 @@ export default function Pricing() {
                   value={planName}
                   onChange={(e) => setPlanName(e.target.value)}
                 />
-              </InputGroup> 
+              </InputGroup>
 
               <label htmlFor="exampleInputEmail1">Plan Description</label>
               <InputGroup className="mb-3" style={{ width: 500, maxWidth: '100%' }} size="lg">
@@ -306,7 +310,7 @@ export default function Pricing() {
                   name="planPrice"
                   value={planPrice}
                   onChange={(e) => setPlanPrice(e.target.value)}
-                /> 
+                />
               </InputGroup>
 
               <label htmlFor="exampleInputEmail1">Currency</label>
@@ -363,28 +367,28 @@ export default function Pricing() {
             </tr>
           </thead>
           <tbody>
-          {allPricingPlan.length > 0 ? (
+            {allPricingPlan.length > 0 ? (
               allPricingPlan.map((price, index) => (
-            <tr key={index}>
-              <td>{price.planName}</td>
-              <td>{price.planDescription}</td>
-              <td>{price.planPrice}</td>
-              <td>{price.planDuration}</td>
-              <td>
-                <EditIcon style={{ color: "black", cursor: "pointer", marginRight: "10px" }}  onClick={() => handleClickOpen(price)}/>
-                <DeleteIcon style={{ color: "red", cursor: "pointer" }}   onClick={() => handleDelete(price.id)}/>
-              </td>
-            </tr>
-              ))
-              ) : (
-                <tr>
-                  <td colSpan="6">No data available</td>
+                <tr key={index}>
+                  <td>{price.planName}</td>
+                  <td>{price.planDescription}</td>
+                  <td>{price.planPrice}</td>
+                  <td>{price.planDuration}</td>
+                  <td>
+                    <EditIcon style={{ color: "black", cursor: "pointer", marginRight: "10px" }} onClick={() => handleClickOpen(price)} />
+                    <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => handleDelete(price.id)} />
+                  </td>
                 </tr>
-              )}
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">No data available</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </Card>
-     <Toaster/>
+      <Toaster />
     </div>
   );
 }
