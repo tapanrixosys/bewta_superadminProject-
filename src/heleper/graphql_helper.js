@@ -1,19 +1,19 @@
 import { gql } from "@apollo/client";
 
-export const GET_ALLSUPPORT = gql`
-  query GetAllSupport {
-    getAllSupportTickets {
-      id
-      subject
-      description
-      added_by
-      status
-      priority
-      name
-      email
-    }
-  }
-`;
+// export const GET_ALLSUPPORT = gql`
+//   query GetAllSupport {
+//     getAllSupportTickets {
+//       id
+//       subject
+//       description
+//       added_by
+//       status
+//       priority
+//       name
+//       email
+//     }
+//   }
+// `;
 
 
  export const GET_SUPPORT_TICKET_QUERY = gql`

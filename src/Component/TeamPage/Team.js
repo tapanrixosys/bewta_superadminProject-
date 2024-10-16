@@ -95,7 +95,7 @@ export default function TenantsPage() {
     onCompleted: () => {
       toast.success("Team member deleted successfully", { position: "top-right" });
       fetchTeam(); // Refetch the teams after deletion
-    },
+    }, 
     onError: (error) => {
       toast.error(`Deletion failed: ${error.message}`, { position: "top-right" });
     },
@@ -106,7 +106,7 @@ export default function TenantsPage() {
     if (data && data.getAllTeams) {
       setTeamData(data.getAllTeams);
     }
-  }, [data, error]);
+  }, [data, error]); 
 
   useEffect(() => {
     fetchTeam();
@@ -144,7 +144,7 @@ export default function TenantsPage() {
           email,
           password,
           isAdmin,
-        },
+        }, 
       });
     } else {
       handleCreate();
@@ -171,7 +171,7 @@ export default function TenantsPage() {
       });
     }
   };
-
+ 
   return (
     <div className="container px-4 py-4">
       <div className="d-flex justify-content-between align-items-center mt-4">
@@ -242,7 +242,7 @@ export default function TenantsPage() {
               <th scope="col">Email</th>
               <th scope="col">Action</th>
             </tr>
-          </thead>
+          </thead> 
 
           <tbody>
             {teamData.length > 0 ? (

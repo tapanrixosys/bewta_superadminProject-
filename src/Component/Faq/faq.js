@@ -1,82 +1,248 @@
-import React, { useState } from 'react';
-import './faq.css'; // Move the CSS here or include it in your main style file
+import React, { useEffect, useState } from 'react';
+import {
+  Card, Button, Dialog, DialogContent, useMediaQuery, useTheme
+} from '@mui/material';
+import { Form, InputGroup } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";  
+import { PropagateLoader } from 'react-spinners';  
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const FaqPage = ({ title, description }) => {
-  const [isOpen, setIsOpen] = useState(false);
+// Queries and Mutations
+const GET_ALL_FAQS = gql`
+  query {
+    getAllFaqsQuery {
+      id
+      question
+      answer
+    }
+  }
+`;
 
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
+const DELETE_FAQ = gql`
+  mutation deletedFaqMutation($id: ID!) {
+    deletedFaqMutation(id: $id) {
+      id
+      question
+      answer
+    }
+  }
+`;
+
+const ADD_FAQ = gql`
+  mutation addFaqMutation($question: String!, $answer: String!) {
+    addFaqMutation(question: $question, answer: $answer) {
+      id
+      question
+      answer
+    }
+  }
+`;
+
+const UPDATE_FAQ = gql`
+  mutation updateFaqMutation($id: ID!, $question: String!, $answer: String!) {
+    updateFaqMutation(id: $id, question: $question, answer: $answer) {
+      id
+      question
+      answer
+    }
+  }
+`;
+
+export default function FaqPage() { 
+
+  const navigate = useNavigate();  
+  const [getAllFaqs, { data, error, loading }] = useLazyQuery(GET_ALL_FAQS); 
+  const [deleteFaq] = useMutation(DELETE_FAQ);
+  const [addFaq] = useMutation(ADD_FAQ);
+  const [updateFaq] = useMutation(UPDATE_FAQ); // Mutation for updating FAQ
+
+  const [faqData, setFaqData] = useState([]);
+  const [open, setOpen]  = useState(false); 
+  const [editMode, setEditMode] = useState(false); // Tracks if we are editing
+  const [editFaq, setEditFaq] = useState(null); // Holds the FAQ being edited
+
+  const [newQuestion, setNewQuestion] = useState("");
+  const [newAnswer, setNewAnswer] = useState("");
+
+  const theme = useTheme(); 
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  
+  const handleClose = () => {
+    setOpen(false);
+    setEditMode(false);
+    setEditFaq(null);
+    setNewQuestion("");
+    setNewAnswer("");
   };
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleEditOpen = (faq) => {
+    setEditFaq(faq);
+    setNewQuestion(faq.question);
+    setNewAnswer(faq.answer);
+    setEditMode(true);
+    setOpen(true);
+  };
+
+  useEffect(() => {
+    getAllFaqs();
+  }, [getAllFaqs]);
+
+  useEffect(() => {
+    if (data && data.getAllFaqsQuery) {
+      setFaqData(data.getAllFaqsQuery);
+    } 
+  }, [data]);
+
+  const handleCreateFaq = () => {
+    addFaq({
+      variables: { question: newQuestion, answer: newAnswer },
+      update: (cache, { data: { addFaqMutation } }) => {
+        const existingFaqs = cache.readQuery({ query: GET_ALL_FAQS });
+        cache.writeQuery({
+          query: GET_ALL_FAQS,
+          data: { getAllFaqsQuery: [...existingFaqs.getAllFaqsQuery, addFaqMutation] },
+        });
+      }
+    }).then(() => {
+      handleClose();
+    }).catch((err) => {
+      console.error("Error adding FAQ: ", err);
+    });
+  };
+
+  const handleUpdateFaq = () => {
+    updateFaq({
+      variables: { id: editFaq.id, question: newQuestion, answer: newAnswer },
+      update: (cache, { data: { updateFaqMutation } }) => {
+        const existingFaqs = cache.readQuery({ query: GET_ALL_FAQS });
+        const updatedFaqs = existingFaqs.getAllFaqsQuery.map(faq =>
+          faq.id === updateFaqMutation.id ? updateFaqMutation : faq
+        );
+        cache.writeQuery({
+          query: GET_ALL_FAQS,
+          data: { getAllFaqsQuery: updatedFaqs },
+        });
+      }
+    }).then(() => {
+      handleClose();
+    }).catch((err) => {
+      console.error("Error updating FAQ: ", err);
+    });
+  };
+
+  const handleDelete = (id) => {
+    deleteFaq({
+      variables: { id },
+      update: (cache, { data: { deletedFaqMutation } }) => {
+        const existingFaqs = cache.readQuery({ query: GET_ALL_FAQS });
+        const newFaqs = existingFaqs.getAllFaqsQuery.filter(faq => faq.id !== id);
+        cache.writeQuery({
+          query: GET_ALL_FAQS,
+          data: { getAllFaqsQuery: newFaqs },
+        });
+      }
+    }).catch((err) => {
+      console.error("Error deleting FAQ: ", err);
+    });
+  };
+
+  if (loading) return <PropagateLoader color="#36D7B7" />;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
-    <div className={`accordion-item ${isOpen ? 'open' : ''}`}>
-      <div className="accordion-item-header" onClick={toggleAccordion}>
-        <span className="accordion-item-header-title">{title}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="lucide lucide-chevron-down accordion-item-header-icon"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </div>
-      <div className="accordion-item-description-wrapper">
-        <div className="accordion-item-description">
-          <hr />
-          <p>{description}</p>
+    <div className="container px-4 py-4">
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div>
+          <h5 style={{ fontWeight: "bold", fontFamily: "sans-serif" }}>All FAQs</h5>
         </div>
+        <div>
+          <button type="button" className="btn text-white" style={{ background: " #A1368B" }} onClick={handleClickOpen}>ADD FAQ</button>
+        </div>
+
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogContent>
+            <div className='d-flex flex-column justify-content-end'>
+              <label htmlFor="question">Question</label>
+              <InputGroup className="mb-3" style={{ width: 500, maxWidth: '100%' }} size="lg">
+                <Form.Control
+                  type="text"
+                  name="question"
+                  value={newQuestion}
+                  onChange={(e) => setNewQuestion(e.target.value)}
+                />
+              </InputGroup> 
+
+              <label htmlFor="answer">Answer:</label>
+              <InputGroup className="mb-3" style={{ width: 500, maxWidth: '100%' }} size="lg">
+                <Form.Control
+                  type="text"
+                  name="answer"
+                  value={newAnswer}
+                  onChange={(e) => setNewAnswer(e.target.value)}
+                />
+              </InputGroup>
+
+              <div className='d-flex flex-row mt-4 justify-content-end'>
+                <Button className='text-white bg-danger fw-bold' onClick={handleClose}>Cancel</Button>
+                <Button
+                  style={{ background: "#A1368B", color: "white", marginLeft: "20px", fontWeight: "bold" }}
+                  onClick={editMode ? handleUpdateFaq : handleCreateFaq} // Update or Create based on mode
+                >  
+                  {editMode ? 'Update' : 'Create'}
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
+
+      <Card className='mt-4' style={{ border: "2px solid #4F5B66" }}>
+        <table className="table table-striped table-bordered" style={{ width: '100%', textAlign: 'center' }}>
+          <thead className="thead-light">
+            <tr>
+              <th scope="col">REQ ID</th>
+              <th scope="col">QUESTION</th>
+              <th scope="col">ANSWER</th>
+              <th scope="col">ACTION</th>
+            </tr>
+          </thead> 
+          <tbody>
+            {faqData.length > 0 ? (  
+              faqData.map((faq, index) => ( 
+                <tr key={faq.id}> 
+                  <td>{index + 48454555}</td>
+                  <td>{faq.question}</td>
+                  <td>{faq.answer}</td> 
+                  <td>
+                    <EditIcon 
+                      style={{ color: "black", cursor: "pointer", marginRight: "10px" }}  
+                      onClick={() => handleEditOpen(faq)} // Open edit form
+                    />
+                    <DeleteIcon 
+                      style={{ color: "red", cursor: "pointer" }} 
+                      onClick={() => handleDelete(faq.id)}
+                    />                  
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">No FAQs available.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </Card>
     </div>
   );
-};
-
-const Accordion = () => {
-  const items = [
-    {
-      title: 'What is Bewta?',
-      description: 'Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.',
-    },
-    {
-      title: 'How do I decide what to put in a paragraph?',
-      description: 'Before you can begin to determine what the composition of a particular paragraph will be, you must first decide on an argument and a working thesis statement for your paper. What is the most important idea that you are trying to convey to your reader? The information in each paragraph must be related to that idea. In other words, your paragraphs should remind your reader that there is a recurrent relationship between your thesis and the information in each paragraph. A working thesis functions like a seed from which your paper, and your ideas, will grow. The whole process is an organic one—a natural progression from a seed to a full-blown paper where there are direct, familial relationships between all of the ideas in the paper.',
-    },
-    {
-      title: 'Revised paragraph',
-      description: 'Although most people consider piranhas to be quite dangerous, they are, for the most part, entirely harmless. Piranhas rarely feed on large animals; they eat smaller fish and aquatic plants. When confronted with humans, piranhas’ first instinct is to flee, not attack. Their fear of humans makes sense. Far more piranhas are eaten by people than people are eaten by piranhas. If the fish are well-fed, they won’t bite humans.',
-    },
-    {
-      title: 'What payment methods do you accept',
-      description: 'Although most people consider piranhas to be quite dangerous, they are, for the most part, entirely harmless. Piranhas rarely feed on large animals; they eat smaller fish and aquatic plants. When confronted with humans, piranhas’ first instinct is to flee, not attack. Their fear of humans makes sense. Far more piranhas are eaten by people than people are eaten by piranhas. If the fish are well-fed, they won’t bite humans.',
-    },{
-      title: 'How do I place an order?',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum ipsam odio voluptates ab quae beatae nihil illo alias vitae minima cumque atque, deleniti quos animi nostrum, veritatis quisquam ullam ducimus laboriosam reprehenderit sapiente, quo necessitatibus dolorem. Impedit sed, similique corporis quo totam, veniam consequatur blanditiis,',
-    },{
-      title: 'What is your return policy?',
-      description: 'Although most people consider piranhas to be quite dangerous, they are, for the most part, entirely harmless. Piranhas rarely feed on large animals; they eat smaller fish and aquatic plants. When confronted with humans, piranhas’ first instinct is to flee, not attack. Their fear of humans makes sense. Far more piranhas are eaten by people than people are eaten by piranhas. If the fish are well-fed, they won’t bite humans.',
-    },
-  ];
-
-  return (
-    <main>
-      <div className="accordion">
-      <h3>Frequently Asked Questions</h3>
-        {items.map((item, index) => (
-          <FaqPage
-            key={index}
-            title={item.title}
-            description={item.description}
-          />
-        ))}
-      </div>
-    </main>
-  );
-};
-
-export default Accordion;
+}
