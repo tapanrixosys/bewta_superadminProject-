@@ -7,6 +7,7 @@ import bg from "../assets/image/image-bg.png";
 import { gql, useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast'; 
+import Cookies from 'js-cookie';
 
 const SuperAdmin = gql`
   query SuperAdmin($email: String!, $password: String!) {
@@ -15,6 +16,7 @@ const SuperAdmin = gql`
       name
       email
       isAdmin
+      token
     }
   }
 `; 
@@ -35,10 +37,9 @@ const Login = () => {
     superadmin({ variables: { email, password } });
    
   };
-
   useEffect(() => {
     if (data) {
-      // Navigate and show success toast on successful login
+      Cookies.set("token", data.superadmin.token, { expires: 7 }); 
       navigate("/dashboard", {
         state: { SuperAdmin: data.superadmin },
       });

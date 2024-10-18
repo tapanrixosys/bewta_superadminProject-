@@ -210,7 +210,6 @@ export default function FaqPage() {
         <table className="table table-striped table-bordered" style={{ width: '100%', textAlign: 'center' }}>
           <thead className="thead-light">
             <tr>
-              <th scope="col">REQ ID</th>
               <th scope="col">QUESTION</th>
               <th scope="col">ANSWER</th>
               <th scope="col">ACTION</th>
@@ -220,7 +219,6 @@ export default function FaqPage() {
             {faqData.length > 0 ? (  
               faqData.map((faq, index) => ( 
                 <tr key={faq.id}> 
-                  <td>{index + 48454555}</td>
                   <td>{faq.question}</td>
                   <td>{faq.answer}</td> 
                   <td>

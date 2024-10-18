@@ -87,7 +87,7 @@ export default function SupportPage() {
         <table className="table table-striped table-bordered" style={{ width: '100%', textAlign: 'center' }}>
           <thead className="thead-light">
             <tr>
-              <th scope="col">REQ ID</th>
+              {/* <th scope="col">REQ ID</th> */}
               <th scope="col">SHORT DESCRIPTION</th>
               <th scope="col">OPEN DATE</th>
               <th scope="col">LAST UPDATED DATE</th>
@@ -100,7 +100,7 @@ export default function SupportPage() {
             {supportData.length > 0 && (
               supportData.map((ticket, index) => (
                 <tr key={ticket.id}>
-                  <td>{index + 48454555}</td>
+                  {/* <td>{index + 48454555}</td> */}
                   <td>{ticket.description}</td>
                   <td>{moment(ticket.createdAt).format('MM/DD/YYYY')}</td>
                   <td>{moment(ticket.updatedAt).format('MM/DD/YYYY')}</td>
