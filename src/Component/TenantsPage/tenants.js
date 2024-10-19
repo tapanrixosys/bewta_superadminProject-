@@ -101,7 +101,7 @@ export default function TenantsPage() {
             All TENANTS
           </h5>
         </div>
-        <div>
+        {/* <div>
           <button
             type="button"
             className="btn text-white "
@@ -109,8 +109,8 @@ export default function TenantsPage() {
             onClick={handleClickOpen}
           >
             ADD TENANTS
-          </button>
-        </div>
+          </button> 
+        </div> */}
         {/* Dialog for adding tenants remains the same */}
       </div>
 
@@ -126,7 +126,7 @@ export default function TenantsPage() {
               {/* <th scope="col">Last Name</th> */}
               <th scope="col">Email</th>
               {/* <th scope="col">Phone</th> */}
-              <th scope="col">Action</th>
+              {/* <th scope="col">Action</th> */}
             </tr>
           </thead>
           <tbody>
@@ -138,7 +138,7 @@ export default function TenantsPage() {
                   {/* <td>{admin.lastName}</td> */}
                   <td>{admin.email}</td>
                   {/* <td>{admin.phoneNumber}</td> */}
-                  <td> 
+                  {/* <td> 
                     <EditIcon
                       style={{
                         color: "black",
@@ -150,7 +150,7 @@ export default function TenantsPage() {
                       style={{ color: "red", cursor: "pointer" }}
                       onClick={() => handleDelete(admin._id)} // Trigger delete mutation
                     />
-                  </td>
+                  </td> */}
                 </tr>
               ))
             ) : (

@@ -30,6 +30,7 @@
     "reactstrap": "^9.2.2",
     "sass": "^1.79.3",
     "simplebar-react": "^3.2.6",
+    "sweetalert2": "^11.14.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

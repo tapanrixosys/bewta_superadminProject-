@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Form, InputGroup } from 'react-bootstrap';
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import toast, { Toaster } from "react-hot-toast";
+import Swal from 'sweetalert2';
 
 // GraphQL Queries and Mutations
 const Teams = gql`
@@ -69,36 +70,69 @@ export default function TenantsPage() {
   // Create mutation
   const [createSuperAdmin] = useMutation(CREATETEAM, {
     onCompleted: () => {
-      toast.success("Team added successfully", { position: "top-right" });
+      Swal.fire({
+        title: 'Success!',
+        text: 'Team member created successfully.',
+        confirmButtonColor: " #A1368B",
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
       handleClose();
-      fetchTeam(); // Refetch the teams after adding a new one
     },
     onError: (error) => {
-      toast.error(`Team creation failed: ${error.message}`, { position: "top-right" });
+      Swal.fire({
+        title: 'Error!',
+        text: `Team creation failed: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     },
+    refetchQueries: [{ query: Teams }],
   });
+   
 
   // Update mutation
   const [updateSuperAdminMutation] = useMutation(UPDATETEAM, {
     onCompleted: () => {
-      toast.success("Team member updated successfully", { position: "top-right" });
+      Swal.fire({
+        title: 'Updated!',
+        text: 'Team member updated successfully.',
+        confirmButtonColor: "#A1368B",
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
       handleClose();
-      fetchTeam(); // Refetch the teams after updating
     },
     onError: (error) => {
-      toast.error(`Update failed: ${error.message}`, { position: "top-right" });
+      Swal.fire({
+        title: 'Error!',
+        text: `Update failed: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     },
+    refetchQueries: [{ query: Teams }],
   });
 
   // Delete mutation
   const [deleteSuperAdminMutation] = useMutation(DELETETEAM, {
     onCompleted: () => {
-      toast.success("Team member deleted successfully", { position: "top-right" });
-      fetchTeam(); // Refetch the teams after deletion
-    }, 
-    onError: (error) => {
-      toast.error(`Deletion failed: ${error.message}`, { position: "top-right" });
+      Swal.fire({
+        title: 'Deleted!',
+        text: 'Team member deleted successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
     },
+    onError: (error) => {
+      Swal.fire({
+        title: 'Error!',
+        text: `Deletion failed: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    },
+    refetchQueries: [{ query: Teams }],
   });
 
   // Fetch team members
@@ -106,35 +140,36 @@ export default function TenantsPage() {
     if (data && data.getAllTeams) {
       setTeamData(data.getAllTeams);
     }
-  }, [data, error]); 
+  }, [data, error]);
 
   useEffect(() => {
-    fetchTeam();
+    fetchTeam({
+      fetchPolicy: "network-only",
+    });
   }, [fetchTeam]);
 
-  // Open the dialog for adding or editing team members
+  // Open the dialog 
   const handleClickOpen = (team = null) => {
     setOpen(true);
     if (team) {
-      setEditingTeamId(team._id);  // Set the editing ID
-      setName(team.name);          // Pre-fill the name, email, etc.
+      setEditingTeamId(team._id);  
+      setName(team.name);        
       setEmail(team.email);
       setIsAdmin(team.isAdmin);
     } else {
-      setEditingTeamId(null);  // Set to null for adding a new team member
+      setEditingTeamId(null);  
       setName('');
       setEmail('');
-      setPassword(''); // Reset the password
+      setPassword(''); 
       setIsAdmin('Yes');
     }
   };
 
-  // Close the dialog
   const handleClose = () => {
     setOpen(false);
   }; 
 
-  // Handle create or update team member
+  //  create or update team member
   const handleSubmit = () => {
     if (editingTeamId) {
       updateSuperAdminMutation({
@@ -151,7 +186,7 @@ export default function TenantsPage() {
     }
   };
 
-  // Handle create team
+  //  create team
   const handleCreate = () => {
     createSuperAdmin({
       variables: {
@@ -163,13 +198,23 @@ export default function TenantsPage() {
     });
   };
 
-  // Handle delete team member
+  //delete team member
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this team member?")) {
-      deleteSuperAdminMutation({
-        variables: { id },
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteSuperAdminMutation({
+          variables: { id },
+        });
+      }
+    });
   };
  
   return (

@@ -24,8 +24,11 @@ import { gql } from "@apollo/client";
       description
       status
       priority
-      name
-      email
+      name 
+      email 
+      type
+      tenant_id
+
     }
   }
 `;

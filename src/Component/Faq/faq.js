@@ -5,9 +5,11 @@ import {
 import { Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { gql, useLazyQuery, useMutation } from "@apollo/client";  
-import { PropagateLoader } from 'react-spinners';  
+// import { PropagateLoader } from 'react-spinners';  
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
+
 
 // Queries and Mutations
 const GET_ALL_FAQS = gql`
@@ -87,7 +89,9 @@ export default function FaqPage() {
     setNewAnswer(faq.answer);
     setEditMode(true);
     setOpen(true);
-  };
+  }; 
+
+
 
   useEffect(() => {
     getAllFaqs();
@@ -137,22 +141,45 @@ export default function FaqPage() {
   };
 
   const handleDelete = (id) => {
-    deleteFaq({
-      variables: { id },
-      update: (cache, { data: { deletedFaqMutation } }) => {
-        const existingFaqs = cache.readQuery({ query: GET_ALL_FAQS });
-        const newFaqs = existingFaqs.getAllFaqsQuery.filter(faq => faq.id !== id);
-        cache.writeQuery({
-          query: GET_ALL_FAQS,
-          data: { getAllFaqsQuery: newFaqs },
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: " #A1368B",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteFaq({
+          variables: { id },
+          update: (cache, { data: { deletedFaqMutation } }) => {
+            const existingFaqs = cache.readQuery({ query: GET_ALL_FAQS });
+            const newFaqs = existingFaqs.getAllFaqsQuery.filter(faq => faq.id !== id);
+            cache.writeQuery({
+              query: GET_ALL_FAQS,
+              data: { getAllFaqsQuery: newFaqs },
+            });
+          }
+        }).then(() => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "The FAQ has been deleted.",
+            icon: "success",
+             confirmButtonColor: "#A1368B"
+          });
+        }).catch((err) => {
+          console.error("Error deleting FAQ: ", err);
+          Swal.fire({
+            title: "Error!",
+            text: "There was an error deleting the FAQ.",
+            icon: "error"
+          });
         });
       }
-    }).catch((err) => {
-      console.error("Error deleting FAQ: ", err);
     });
   };
 
-  if (loading) return <PropagateLoader color="#36D7B7" />;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
@@ -210,17 +237,17 @@ export default function FaqPage() {
         <table className="table table-striped table-bordered" style={{ width: '100%', textAlign: 'center' }}>
           <thead className="thead-light">
             <tr>
-              <th scope="col">REQ ID</th>
+              
               <th scope="col">QUESTION</th>
               <th scope="col">ANSWER</th>
               <th scope="col">ACTION</th>
             </tr>
           </thead> 
-          <tbody>
+          <tbody> 
             {faqData.length > 0 ? (  
               faqData.map((faq, index) => ( 
                 <tr key={faq.id}> 
-                  <td>{index + 48454555}</td>
+
                   <td>{faq.question}</td>
                   <td>{faq.answer}</td> 
                   <td>
