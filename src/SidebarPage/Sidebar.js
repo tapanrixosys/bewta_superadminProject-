@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import './sidebar.css'; // Assuming you will place the CSS in a separate file
-
+import './sidebar.css'; 
+import Cookies from 'js-cookie';
 import logo from '../assets/image/bewta-logo-white.svg'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Sidebar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isSidebarClosed, setIsSidebarClosed] = useState(false);
   // const [active, setActive] = useState(true)
-
+  const navigate = useNavigate();
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -17,6 +17,11 @@ const Sidebar = () => {
 
   const toggleSidebar = () => {
     setIsSidebarClosed(!isSidebarClosed);
+  };
+
+  const handleLogout = () => {
+    Cookies.remove("token"); // Remove the token from cookies
+    navigate("/login"); // Redirect the user to the login page
   };
 
   return (
@@ -90,7 +95,7 @@ const Sidebar = () => {
 
         <div className="bottom-content">
           <li className="nav-link"> 
-            <a href="login">
+            <a href="" onClick={handleLogout}>
               <i className="bx bx-log-out icons text-light"></i>
               <span className="text text-white nav-text">Log Out</span>
             </a>          

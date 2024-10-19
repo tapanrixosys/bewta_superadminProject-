@@ -1,30 +1,5 @@
-// import React from 'react';
-// import { Routes, Route } from 'react-router-dom';
-// // import Login from '../../Login/Login';
-// // import DashBoard from '../../DashBoard/DashBoard';
-// // import Client from '../../Client/Client';
-
-// const RoutePage = () => {
-    
-//   return (
-//     <div>
-//       <Routes>
-//         {/* Route for login page */}
-//         {/* <Route path="/" element={<Login />} /> */}
-
-//         {/* Route for dashboard page */}
-//         {/* <Route path="/dashboard" element={<DashBoard />} /> */}
-//         {/* <Route path="/client" element={<Client/>} /> */}
-//       </Routes>
-//     </div>
-//   );
-// };
-
-// export default RoutePage;
-
-   
-
-import { useRoutes } from "react-router-dom";
+import { useEffect } from "react";
+import { useRoutes,useNavigate } from "react-router-dom";
 import LayoutDesign from '../Component/LayoutPage/LayoutPage';
 import Tenants from '../Component/TenantsPage/tenants'
 import Support from "../Component/SupportPage/Support";
@@ -35,16 +10,24 @@ import Team from "../Component/TeamPage/Team";
 import FaqPage from "../Component/Faq/faq";
 import SettingPage from "../Component/SettingPage/Setting";
 import SupportViewdetails from "../Component/SupportPage/SupportViewdetails";
+import Cookies from "js-cookie";
 
 
 export default function RoutePage() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = Cookies.get("token");
+
+        if (!token) {
+            navigate("/login");
+        }
+    }, [navigate]);
    
     let routes = useRoutes([ 
         { 
             path: '/',
             element:<LayoutDesign/>,
-            // element: <Login/>,
-            // element: <LayoutDesign />, 
           
             children: [
               { path: '/dashboard', element: <DashBoard /> },
