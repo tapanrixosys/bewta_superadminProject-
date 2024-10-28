@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '@mui/material';
-import { useQuery } from '@apollo/client';
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
-import { PropagateLoader } from 'react-spinners'; 
-import Switch from '@mui/material/Switch';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { gql, useLazyQuery } from "@apollo/client";  
-import Swal from 'sweetalert2'
 
 
 const SupportTickets  = gql`
@@ -20,8 +15,7 @@ const SupportTickets  = gql`
       status
       priority
       type
-      name
-      email
+      image
       tenant_id
       
     }
@@ -33,14 +27,6 @@ export default function SupportPage() {
   const navigate = useNavigate();
   const [getAllSupportTickets, { data, error }] = useLazyQuery(SupportTickets); 
   const [supportData, setSupportData] = useState([]);
-  const [checked, setChecked] = useState(false);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
-
- 
-
 
   useEffect(() => {
     if (data && data.getAllSupportTickets) {
@@ -72,7 +58,7 @@ export default function SupportPage() {
               <th scope="col">OPEN DATE</th>
               <th scope="col">LAST UPDATED DATE</th>
               <th scope="col">STATUS</th>
-              <th scope="col"></th>
+              <th scope="col">ACTION</th>
             </tr>
           </thead>
 
@@ -80,7 +66,7 @@ export default function SupportPage() {
             {supportData.length > 0 && (
               supportData.map((ticket, index) => (
                 <tr key={ticket.id}>
-                  <td>{ticket.description}</td>
+                  <td className='text-left'>{ticket.description}</td>
                   <td>{moment(ticket.createdAt).format('MM/DD/YYYY')}</td>
                   <td>{moment(ticket.updatedAt).format('MM/DD/YYYY')}</td>
                   <td>{ticket.status}</td> 

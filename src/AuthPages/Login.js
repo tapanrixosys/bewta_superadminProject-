@@ -39,7 +39,8 @@ const Login = () => {
   };
   useEffect(() => {
     if (data) {
-      Cookies.set("token", data.superadmin.token, { expires: 7 }); 
+      Cookies.set("token", data.superadmin[0].token, { expires: 7 }); 
+      Cookies.set("SuperAdmin", data.superadmin[0]._id); 
       navigate("/dashboard", {
         state: { SuperAdmin: data.superadmin },
       });
