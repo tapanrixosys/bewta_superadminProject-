@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  useMediaQuery,
-  useTheme, 
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import {Card} from "@mui/material";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from "@mui/icons-material/Delete";
+import {useNavigate} from 'react-router-dom'
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const Tenants  = gql`
   query {
@@ -39,20 +37,7 @@ const DELETE_TENANT = gql`
 
 export default function TenantsPage() {
   const [open, setOpen] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [roleId, setRoleId] = useState(1);
-  const [isAdmin, setIsAdmin] = useState("yes");
-  const [locationIds, setLocationIds] = useState([1]);
-  const [permissionIds, setPermissionIds] = useState([1]);
-  const [serviceIds, setServiceIds] = useState([1]);
-
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  
+  const navigate = useNavigate();
 
   const [fetchTenants, { data, error }] = useLazyQuery(Tenants);
   const [superAdminData, setSuperAdminData] = useState([]); 
@@ -60,12 +45,24 @@ export default function TenantsPage() {
   // Add the delete mutation
   const [deleteTenantsMutation] = useMutation(DELETE_TENANT, {
     onCompleted: (data) => {
-      toast.success("Tenant deleted successfully", { position: "top-right" });
-      fetchTenants(); // Refetch tenants after deletion
+      Swal.fire({
+        title: 'Success!',
+        text: 'Tenant Deleted successfully.',
+        confirmButtonColor: " #A1368B",
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      handleClose();
     },
     onError: (error) => {
-      toast.error(`Tenant deletion failed: ${error.message}`, { position: "top-right" });
+      Swal.fire({
+        title: 'Error!',
+        text: `Tenant deletion failed: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     },
+    refetchQueries: [{ query: Tenants }],
   });
 
   useEffect(() => {
@@ -82,14 +79,29 @@ export default function TenantsPage() {
     setOpen(true);
   }; 
 
+  const handleView = (id)=>{
+    navigate(`/tenant-details/${id}`)
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleDelete = (id) => {
-    // Call the delete mutation
-    deleteTenantsMutation({
-      variables: { id },
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteTenantsMutation({
+          variables: { id },
+        });
+      }
     });
   };
 
@@ -101,17 +113,6 @@ export default function TenantsPage() {
             All TENANTS
           </h5>
         </div>
-        {/* <div>
-          <button
-            type="button"
-            className="btn text-white "
-            style={{ background: " #A1368B" }}
-            onClick={handleClickOpen}
-          >
-            ADD TENANTS
-          </button> 
-        </div> */}
-        {/* Dialog for adding tenants remains the same */}
       </div>
 
       <Card className="mt-4" style={{ border: "2px solid #4F5B66 " }}>
@@ -121,36 +122,31 @@ export default function TenantsPage() {
         >
           <thead className="thead-light">
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">First Name</th>
-              {/* <th scope="col">Last Name</th> */}
+              <th scope="col">Name</th>
               <th scope="col">Email</th>
-              {/* <th scope="col">Phone</th> */}
-              {/* <th scope="col">Action</th> */}
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             {superAdminData.length > 0 ? (
               superAdminData.map((admin, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
                   <td>{admin.firstName}</td>
-                  {/* <td>{admin.lastName}</td> */}
                   <td>{admin.email}</td>
-                  {/* <td>{admin.phoneNumber}</td> */}
-                  {/* <td> 
-                    <EditIcon
+                  <td> 
+                    <VisibilityIcon
                       style={{
                         color: "black",
                         cursor: "pointer",
                         marginRight: "10px",
                       }}
+                      onClick={() => handleView(admin._id)}
                     />
                     <DeleteIcon
                       style={{ color: "red", cursor: "pointer" }}
                       onClick={() => handleDelete(admin._id)} // Trigger delete mutation
                     />
-                  </td> */}
+                  </td>
                 </tr>
               ))
             ) : (

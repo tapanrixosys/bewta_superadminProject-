@@ -277,7 +277,7 @@ const [previewImage, setPreviewImage] = useState("");
           </div>
         </div>
       </div>
-      {/* <div className="card custom-card mt-2">
+      <div className="card custom-card mt-2">
           <h5
             className="card-title fw-bold fs-5"
             style={{ fontFamily: "sans-serif" }}
@@ -376,7 +376,7 @@ const [previewImage, setPreviewImage] = useState("");
         </div>
       )}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

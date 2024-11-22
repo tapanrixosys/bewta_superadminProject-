@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Form, InputGroup, } from 'react-bootstrap';
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import toast, { Toaster } from "react-hot-toast";
+import Swal from 'sweetalert2';
 
 const pricingPlan = gql`
  query {
@@ -142,37 +143,71 @@ export default function Pricing() {
   // create price plan
   const [createPricePlan, { loading: creating }] = useMutation(CREATE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
-      fetchPricingPlans(); // Refresh the pricing plans after creation
-      handleClose(); // Close the dialog
-      toast.success('Pricing plan created successfully!');
+      Swal.fire({
+        title: 'Success!',
+        text: 'Price Plan created successfully.',
+        confirmButtonColor: " #A1368B",
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      handleClose();
     },
     onError: (error) => {
-      toast.error(`Error: ${error.message}`); // Show error message
+      Swal.fire({
+        title: 'Error!',
+        text: `Plan creation failed: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     },
+    refetchQueries: [{ query: pricingPlan }],
   });
 
   // delete price plan
   const [deletePricePlan] = useMutation(DELETE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
-      fetchPricingPlans(); // Refresh the pricing plans after deletion
-      toast.success('Pricing plan deleted successfully!');
+      Swal.fire({
+        title: 'Success!',
+        text: 'Price Plan deleted successfully.',
+        confirmButtonColor: " #A1368B",
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      handleClose();
     },
     onError: (error) => {
-      toast.error(`Error: ${error.message}`); // Show error message
+      Swal.fire({
+        title: 'Error!',
+        text: `Plan deletion failed: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     },
+    refetchQueries: [{ query: pricingPlan }],
   });
 
 
   // update price plan 
   const [updatePricePlan] = useMutation(UPDATE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
-      fetchPricingPlans();
+      Swal.fire({
+        title: 'Success!',
+        text: 'Price Plan updated successfully.',
+        confirmButtonColor: " #A1368B",
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
       handleClose();
-      toast.success('Pricing plan updated successfully!');
     },
     onError: (error) => {
-      toast.error(`Error: ${error.message}`);
+      Swal.fire({
+        title: 'Error!',
+        text: `Plan updation failed: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     },
+    refetchQueries: [{ query: pricingPlan }],
   });
 
   useEffect(() => {
@@ -321,7 +356,6 @@ export default function Pricing() {
                   onChange={(e) => setCurrency(e.target.value)}
                 >
                   <option value="" >Choose Currency</option>
-                  <option value="INR">INR</option>
                   <option value="USD">USD</option>
 
                 </Form.Select>
