@@ -77,6 +77,10 @@ export default function TenantsPage() {
     setOpen(true);
   }; 
 
+  const handleView = (id)=>{
+    navigate(`/tenant-details/${id}`)
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -118,9 +122,7 @@ export default function TenantsPage() {
     });
   };
 
-  const handleView = (id)=>{
-    navigate(`/tenant-details/${id}`)
-  }
+  
 
   return (
     <div className="container px-4 py-4">
@@ -130,17 +132,6 @@ export default function TenantsPage() {
             All TENANTS
           </h5>
         </div>
-        {/* <div>
-          <button
-            type="button"
-            className="btn text-white "
-            style={{ background: " #A1368B" }}
-            onClick={handleClickOpen}
-          >
-            ADD TENANTS
-          </button> 
-        </div> */}
-        {/* Dialog for adding tenants remains the same */}
       </div>
 
       <Card className="mt-4" style={{ border: "2px solid #4F5B66 " }}>
@@ -150,9 +141,7 @@ export default function TenantsPage() {
         >
           <thead className="thead-light">
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">First Name</th>
-              {/* <th scope="col">Last Name</th> */}
+              <th scope="col">Name</th>
               <th scope="col">Email</th>
               {/* <th scope="col">Phone</th> */}
               <th scope="col">Action</th>
@@ -162,9 +151,7 @@ export default function TenantsPage() {
             {superAdminData.length > 0 ? (
               superAdminData.map((admin, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
                   <td>{admin.firstName}</td>
-                  {/* <td>{admin.lastName}</td> */}
                   <td>{admin.email}</td>
                   {/* <td>{admin.phoneNumber}</td> */}
                   <td> 

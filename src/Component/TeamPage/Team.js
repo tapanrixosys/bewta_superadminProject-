@@ -282,7 +282,6 @@ export default function TenantsPage() {
         <table className="table table-striped table-bordered" style={{ width: '100%', textAlign: 'center' }}>
           <thead className="thead-light">     
             <tr>
-              <th scope="col">ID</th>
               <th scope="col"> Name</th>
               <th scope="col">Email</th>
               <th scope="col">Action</th>
@@ -293,12 +292,11 @@ export default function TenantsPage() {
             {teamData.length > 0 ? (
               teamData.map((team, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
                   <td>{team.name}</td>
                   <td>{team.email}</td> 
                   <td>                   
                     <EditIcon style={{ color: "black", cursor: "pointer", marginRight: "10px" }} onClick={() => handleClickOpen(team)} />
-                    <DeleteIcon style={{ color: "black", cursor: "pointer" }} onClick={() => handleDelete(team._id)} />
+                    <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => handleDelete(team._id)} />
                   </td>
                 </tr>  
               ))        

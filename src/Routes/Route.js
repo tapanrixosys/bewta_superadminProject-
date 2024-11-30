@@ -8,7 +8,7 @@ import DashBoard from "../Component/DashBoard/DashBoard";
 import Pricing from "../Component/Pricing/Pricing";
 import Team from "../Component/TeamPage/Team";
 import FaqPage from "../Component/Faq/faq";
-import SettingPage from "../Component/SettingPage/Setting";
+import SalesPage from "../Component/SalesPage/Sales";
 import SupportViewdetails from "../Component/SupportPage/SupportViewdetails";
 import TenantDetails from "../Component/TenantsPage/tenantsDetails";
 import Cookies from "js-cookie";
@@ -38,10 +38,8 @@ export default function RoutePage() {
                 { path: '/support-viewdetails/:id', element: <SupportViewdetails /> },
                 { path: '/team', element: <Team /> },
                 { path: '/faq', element: <FaqPage /> },
-                { path: '/setting', element: <SettingPage /> },
+                { path: '/sales', element: <SalesPage /> },
                 { path: '/tenant-details/:id', element: <TenantDetails/>}
-
-
             ] 
         },
         { path: 'login', element: <Login/> },

@@ -70,9 +70,9 @@ const Sidebar = () => {
               </a>
             </li>
             <li className="nav-link">
-              <a href="/setting">
+              <a href="/sales">
                 <i className="bx bx-heart icons text-light"></i>
-                <span className="text text-white nav-text">Settings</span>
+                <span className="text text-white nav-text">Sales</span>
               </a>
             </li>
             <li className="nav-link">
