@@ -10,6 +10,7 @@ import Team from "../Component/TeamPage/Team";
 import FaqPage from "../Component/Faq/faq";
 import SettingPage from "../Component/SettingPage/Setting";
 import SupportViewdetails from "../Component/SupportPage/SupportViewdetails";
+import TenantDetails from "../Component/TenantsPage/tenantsDetails";
 import Cookies from "js-cookie";
 
 
@@ -38,6 +39,7 @@ export default function RoutePage() {
                 { path: '/team', element: <Team /> },
                 { path: '/faq', element: <FaqPage /> },
                 { path: '/setting', element: <SettingPage /> },
+                { path: '/tenant-details/:id', element: <TenantDetails/>}
 
 
             ] 

@@ -5,7 +5,7 @@ import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
 
 function App() {
   const client = new ApolloClient({
-    uri: 'https://api.bewta.com/graphql', //  GraphQL endpoint
+    uri: 'http://localhost:4001/graphql', //  GraphQL endpoint
     cache: new InMemoryCache(),
   });
 
