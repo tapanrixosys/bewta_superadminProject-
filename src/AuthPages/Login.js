@@ -6,7 +6,7 @@ import bewta from "../assets/image/bewta-logo.svg";
 import bg from "../assets/image/image-bg.png";
 import { gql, useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from 'react-hot-toast'; 
+import toast, { Toaster } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 
 const SuperAdmin = gql`
@@ -19,15 +19,15 @@ const SuperAdmin = gql`
       token
     }
   }
-`; 
+`;
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
 
-  const navigate = useNavigate(); 
- 
+
+  const navigate = useNavigate();
+
 
   const [superadmin, { data, loading, error }] = useLazyQuery(
     SuperAdmin
@@ -35,17 +35,17 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     superadmin({ variables: { email, password } });
-   
+
   };
   useEffect(() => {
     if (data) {
-      Cookies.set("token", data.superadmin[0].token, { expires: 7 }); 
-      Cookies.set("SuperAdmin", data.superadmin[0]._id); 
+      Cookies.set("token", data.superadmin[0].token, { expires: 7 });
+      Cookies.set("SuperAdmin", data.superadmin[0]._id);
       navigate("/dashboard", {
         state: { SuperAdmin: data.superadmin },
       });
       toast.success("Login Successful", { position: "top-right" });
-    }  
+    }
 
     if (error) {
       // Show error toast when login fails
@@ -60,7 +60,7 @@ const Login = () => {
         <div className="left-inside d-flex flex-column justify-content-center align-items-center  ">
           <div className="img-container position-relative  ">
             <img src={bg} alt="bg" className=" img-bg  " />
-             {/* <img src={overlap} alt="bg" className="img-fluid img-overlap " />  */}
+            {/* <img src={overlap} alt="bg" className="img-fluid img-overlap " />  */}
             <div className="text-overlap position-absolute d-flex flex-column justify-content-center align-items-center">
               <div>
                 <h1 className=" left-h1 fw-bold fs-3">
@@ -78,11 +78,13 @@ const Login = () => {
             </div>
           </div>
         </div>
+
         <div className="right-inside">
-          <div className="d-flex justify-content-center align-items-center ">
+          <div className="d-flex justify-content-center align-items-center mb-4 ">
             <img src={bewta} alt="bewta" className="mt-3" />
-            <h1 className="Bewta fw-bolder ">Bewta Super Admin</h1>
+            <h1 className="Bewta fw-bolder  ">Bewta Super Admin</h1>
           </div>
+
           <div>
             <form
               className=" d-flex flex-column align-items-center"
@@ -92,6 +94,7 @@ const Login = () => {
               <div>
                 <h1 className=" form-heading fs-2">Sign in to Account</h1>
               </div>
+
               <div className=" form-content d-flex flex-column justify-content-between align-items-center">
                 <label className="input-label px-2 py-1  d-flex justify-content-center align-items-center">
                   <input
@@ -104,8 +107,8 @@ const Login = () => {
                 </label>
                 <label className="input-label px-2 py-1  d-flex justify-content-center align-items-center">
                   <input
-                    type="password"
-                    value={password} 
+                    type="password" 
+                    value={password}
                     name="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -113,26 +116,43 @@ const Login = () => {
                 </label>
               </div>
 
-              <div className="chk-box p-2 d-flex align-items-center justify-content-center gap-1 ">
-                <input type="checkbox" className="mb-4" />
-                <label className="chk-label mb-1">Remember me</label>
-                <div className="m-0">
-                  <p className="forget ">
-                    Forgot <br />
-                    Your
-                    <br /> password
-                  </p>
-                </div>
+              <div   className="mt-2"    style={{display:"flex",justifyContent:"center",gap:"50px"}}>
+                  <div className="form-check row-lg-6">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="customControlInline"
+                    />
+                    <label
+                      className="form-check-label text-muted custom-rem-ab"
+                      htmlFor="customControlInline"
+                    >
+                      Remember me 
+                    </label>
+                  </div>
+
+                  <div className="text-center row-lg-6">
+                    <label
+                       style={{fontSize:'14px',fontWeight:"600"}}
+                      className="text-muted"
+                    >
+                      Forgot your password?
+                    </label>
+                  </div>
+
+
               </div>
+
+
               <div className="btn-container ">
                 <button className="Login-btn p-2 ">
                   {" "}
                   {loading ? "Logging in..." : "LOGIN"}
                 </button>
               </div>
-             
-              
-             
+
+
+
             </form>
           </div>
           <div className="d-flex justify-content-center align-items-center gap-3 p-2 mt-3">
