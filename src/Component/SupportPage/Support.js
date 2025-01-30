@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from '@mui/material';
+import { Card ,CircularProgress} from '@mui/material';
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
 import { gql, useLazyQuery } from "@apollo/client";  
@@ -25,7 +25,7 @@ const SupportTickets  = gql`
 export default function SupportPage() {
  
   const navigate = useNavigate();
-  const [getAllSupportTickets, { data, error }] = useLazyQuery(SupportTickets); 
+  const [getAllSupportTickets, { data, error,loading }] = useLazyQuery(SupportTickets); 
   const [supportData, setSupportData] = useState([]);
 
   useEffect(() => {
@@ -50,7 +50,10 @@ export default function SupportPage() {
        
       </div>
 
-      <Card className='mt-4' style={{ border: "2px solid #4F5B66" }}>
+      <Card className='mt-4' style={{ border: "1px solid #4F5B66", minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {loading ? (
+                          <CircularProgress /> // Show Loader while loading
+                        ) : (
         <table className="table table-striped table-bordered" style={{ width: '100%', textAlign: 'center' }}>
           <thead className="thead-light">
             <tr>
@@ -78,6 +81,7 @@ export default function SupportPage() {
             )}
           </tbody>
         </table>
+   )}
       </Card>
     </div>
   );

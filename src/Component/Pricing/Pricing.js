@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Card, Button, Dialog, DialogContent, useMediaQuery, useTheme
+  Card, Button, Dialog, DialogContent, useMediaQuery, useTheme,CircularProgress
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -139,7 +139,7 @@ export default function Pricing() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   // get price plan
-  const [fetchPricingPlans, { data, error }] = useLazyQuery(pricingPlan);
+  const [fetchPricingPlans, { data, error,loading }] = useLazyQuery(pricingPlan);
   // create price plan
   const [createPricePlan, { loading: creating }] = useMutation(CREATE_PRICE_PLAN_MUTATION, {
     onCompleted: () => {
@@ -389,7 +389,10 @@ export default function Pricing() {
         </Dialog>
       </div>
 
-      <Card className='mt-4' style={{ border: "2px solid #4F5B66" }}>
+      <Card className='mt-4' style={{ border: "1px solid #4F5B66", minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {loading ? (
+                  <CircularProgress /> // Show Loader while loading
+                ) : (
         <table className="table table-striped table-bordered" style={{ width: '100%', textAlign: 'center' }}>
           <thead className="thead-light">
             <tr>
@@ -421,6 +424,7 @@ export default function Pricing() {
             )}
           </tbody>
         </table>
+                )}
       </Card>
       <Toaster />
     </div>
